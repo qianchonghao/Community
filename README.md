@@ -27,11 +27,12 @@ CREATE CACHED TABLE PUBLIC.USER(
 
 *** 
 ##注意点
-1.HTML文件名 和controller文件名要对应
-2.HTML文件 <head>中存储内容=css+theme+js
-3.拖拽文件到<head>注意去除 地址前缀../static
-4.通过github中api 有guides指导！！
-5. okhttp中maven的注入
+1. HTML文件名 和controller文件名要对应
+2. HTML文件 <head>中存储内容=css+theme+js
+3. 拖拽文件到<head>注意去除 地址前缀../static
+4. 通过github中api 有guides指导！！
+5. okhttp中maven的注入  
+
        <dependency>
               <groupId>com.squareup.okhttp3</groupId>
               <artifactId>okhttp</artifactId>
@@ -39,5 +40,4 @@ CREATE CACHED TABLE PUBLIC.USER(
           </dependency>
 <<<<<<< HEAD
  test 
-=======
->>>>>>> 4fd2a6ec176df47fa9140a56b81df35ef6d56c74
+
