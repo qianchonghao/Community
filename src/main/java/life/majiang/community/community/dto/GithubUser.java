@@ -6,6 +6,16 @@ public class GithubUser {
     private String bio;
     private String login;
 
+    @Override
+    public String toString() {
+        return "GithubUser{" +
+                "name='" + name + '\'' +
+                ", id=" + id +
+                ", bio='" + bio + '\'' +
+                ", login='" + login + '\'' +
+                '}';
+    }
+
     public String getLogin() {
         return login;
     }

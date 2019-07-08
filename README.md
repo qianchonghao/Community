@@ -8,9 +8,24 @@
 [Es ](https://elasticsearch.cn/)
 [BootStrap ](https://v3.bootcss.com)
 [OKHttp](https://square.github.io/okhttp/)
+[Spring](https://docs.spring.io/spring-boot/docs/2.0.0.RC1/reference/htmlsingle/#boot-documentation)
+[Mybaitis]()
+
 ##工具
 [Visual Paradigm](https://www.visual-paradigm.com/cn/)
 
+##脚本
+*** sql
+CREATE CACHED TABLE PUBLIC.USER(
+    ID INT DEFAULT () 
+    ACCOUNT_ID VARCHAR(100),
+    NAME VARCHAR(50),
+    TOKEN CHAR(36),
+    GMT_CREATE BIGINT,
+    GMT_MODIFIED BIGINT
+)
+
+*** 
 ##注意点
 1.HTML文件名 和controller文件名要对应
 2.HTML文件 <head>中存储内容=css+theme+js

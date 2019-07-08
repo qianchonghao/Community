@@ -8,7 +8,8 @@ import java.io.IOException;
 
 /*
 1.想通过GithubProvider 携带access_token&code 访问github
-2.import okhttp3 和 json(工具类) 来达到 获取返回信息？
+2.import okhttp3 目的： 提供前端 css theme jsp文件
+3.import json(工具类) :通过String<-->JSON 实现信息传递
 
  */
 @Component
