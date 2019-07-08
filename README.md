@@ -37,3 +37,4 @@ CREATE CACHED TABLE PUBLIC.USER(
               <artifactId>okhttp</artifactId>
               <version>3.14.1</version>
           </dependency>
+ test 
