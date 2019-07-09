@@ -11,7 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
 
 @Controller
@@ -34,7 +36,8 @@ public class AuthorizeController {
     //callback 是Github Application中 预存的redirect_uri的请求参数
     public String Callback(@RequestParam(name="code")String code,
                            @RequestParam(name="state")String state,
-                            HttpServletRequest request){
+                            HttpServletRequest request,
+                            HttpServletResponse response){
         //Sping 自动把上下文中HttpServletRequest  传入参数request 供我们使用
         AccessToeknDTO accessTokenDTO = new AccessToeknDTO();
         accessTokenDTO.setCode(code);
@@ -50,7 +53,9 @@ public class AuthorizeController {
         if(githubUser!=null){
             //登录成功 写cookie和session
             User user = new User();
-            user.setToken(UUID.randomUUID().toString());
+            String newToken = UUID.randomUUID().toString();
+
+            user.setToken(newToken);  //手动token
             user.setName(githubUser.getName());
             user.setAccountId(String.valueOf(githubUser.getId()));
             //String.valueOf(String data)将int转化为 String
@@ -60,6 +65,7 @@ public class AuthorizeController {
             userMapper.insert(user);//**
             request.getSession().setAttribute("user",githubUser);
             //设置cookie和session 同时要思考怎么在HTML文件中传递Session
+            response.addCookie(new Cookie("token",newToken));
             return "redirect:/";
             //return redirect 会重新跳转index 不包含请求参数
         }else{

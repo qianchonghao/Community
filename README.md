@@ -16,6 +16,7 @@ test
 
 ##脚本
 *** sql
+```
 CREATE CACHED TABLE PUBLIC.USER(
     ID INT DEFAULT () 
     ACCOUNT_ID VARCHAR(100),
@@ -24,6 +25,7 @@ CREATE CACHED TABLE PUBLIC.USER(
     GMT_CREATE BIGINT,
     GMT_MODIFIED BIGINT
 )
+```
 
 *** 
 ##注意点
@@ -32,12 +34,12 @@ CREATE CACHED TABLE PUBLIC.USER(
 3. 拖拽文件到<head>注意去除 地址前缀../static
 4. 通过github中api 有guides指导！！
 5. okhttp中maven的注入  
-
+```
        <dependency>
               <groupId>com.squareup.okhttp3</groupId>
               <artifactId>okhttp</artifactId>
               <version>3.14.1</version>
           </dependency>
-<<<<<<< HEAD
+```
  test 
 
