@@ -61,6 +61,7 @@ public class AuthorizeController {
             //String.valueOf(String data)将int转化为 String
             user.setGmtCreate(System.currentTimeMillis());
             user.setGmtModified(user.getGmtCreate());
+            user.setAvatarUrl(githubUser.getAvatarUrl());
 
             userMapper.insert(user);//**
             request.getSession().setAttribute("user",githubUser);

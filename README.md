@@ -10,6 +10,7 @@ test
 [OKHttp](https://square.github.io/okhttp/)
 [Spring](https://docs.spring.io/spring-boot/docs/2.0.0.RC1/reference/htmlsingle/#boot-documentation)
 [Mybaitis]()
+[Lombok](https://www.projectlombok.org)
 
 ##工具
 [Visual Paradigm](https://www.visual-paradigm.com/cn/)
