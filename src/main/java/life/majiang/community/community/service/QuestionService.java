@@ -27,6 +27,7 @@ public class QuestionService {
     public PageDTO getList(Integer page, Integer size) {
         //size 用來計算 totalPage
         // size*(page -1)
+        //offset 和size作用：questionMapper内选取数据库question信息
         Integer totalPage;
         Integer totalCount = questionMapper.count();
 
@@ -47,6 +48,47 @@ public class QuestionService {
 
         List<QuestionDTO> list = new ArrayList<QuestionDTO>();
         List<Question> questions = questionMapper.getList(offset, size);
+
+        for (Question question : questions) {
+            User user = userMapper.findById(question.getCreator());
+            QuestionDTO questionDTO = new QuestionDTO();
+            BeanUtils.copyProperties(question, questionDTO);//将同名的变量由 question--->questionDTO
+            questionDTO.setUser(user);
+
+            list.add(questionDTO);
+        }
+        pageDTO.setQuestionDTOList(list);
+
+        pageDTO.setPageInfo(totalPage,page);
+        return pageDTO;
+    }
+
+
+    public PageDTO getMyPageDTO(Integer id,Integer page, Integer size) {
+        //size 計算 --->totalPage---->关乎ShowEnd等boolean变量设置
+        // offset=size*(page -1)
+        //offset 和size作用：questionMapper内选取数据库question信息，
+        // 此处question信息选取条件是id决定，所以不需要offset
+        Integer totalPage;
+        Integer totalCount = questionMapper.MyCount(id);
+
+        if(totalCount% size ==0){
+            totalPage=totalCount/size;
+
+        }else{
+            totalPage=totalCount/size+1;
+        }
+
+        if(page<1)page=1;
+
+        else if(page>totalPage) page=totalPage;
+
+        Integer offset = size * (page - 1);
+
+        PageDTO pageDTO = new PageDTO();
+
+        List<QuestionDTO> list = new ArrayList<QuestionDTO>();
+        List<Question> questions = questionMapper.getListById(id,offset,size);
 
         for (Question question : questions) {
             User user = userMapper.findById(question.getCreator());
