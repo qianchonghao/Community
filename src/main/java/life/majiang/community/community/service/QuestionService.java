@@ -38,9 +38,8 @@ public class QuestionService {
             totalPage=totalCount/size+1;
         }
 
-        if(page<1)page=1;
-
-        else if(page>totalPage) page=totalPage;
+        if (page < 1) page = 1;
+        else if (page > totalPage) page = totalPage;
 
         Integer offset = size * (page - 1);
 
@@ -102,5 +101,15 @@ public class QuestionService {
 
         pageDTO.setPageInfo(totalPage,page);
         return pageDTO;
+    }
+
+    public QuestionDTO getById(Integer id) {
+        //此处id是 question的主键ID 是唯一的。userId对应的是question.creator
+        Question question = questionMapper.getById(id);
+        User user = userMapper.findById(question.getCreator());
+        QuestionDTO questionDTO =new QuestionDTO();
+        BeanUtils.copyProperties(question,questionDTO);
+        questionDTO.setUser(user);
+        return  questionDTO;
     }
 }
