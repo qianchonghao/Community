@@ -1,6 +1,5 @@
-package life.majiang.community.community.dto;
+package life.majiang.community.dto;
 
-import life.majiang.community.community.model.Question;
 import lombok.Data;
 
 import java.util.ArrayList;

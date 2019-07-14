@@ -24,13 +24,19 @@
                     <label for="title">问题标题（简明扼要）</label>
                     <input type="text" class="form-control" id="title" name="title" placeholder="问题标题__" th:value="${title}">
                 </div>
+
                 <div class="form-group">
                     <label for="title">问题补充</label>
                     <textarea class="form-control" id="description" name="description"   cols="30" rows="10" th:text="${description}"></textarea>
                 </div>
+
                 <div class="form-group">
                     <label for="title">添加标签</label>
                     <input type="text" class="form-control" id="tag" name="tag" placeholder="输入标签，以，隔开" th:value="${tag}">
+                </div>
+
+                <div class="form-group">
+                    <input type="hidden"  name="questionId" th:value="${questionId}">
                 </div>
 
                 <div class="container-fluid main">

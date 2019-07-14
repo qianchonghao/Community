@@ -1,9 +1,7 @@
-package life.majiang.community.community.Community;
+package life.majiang.community.community;
 
-import life.majiang.community.community.dto.QuestionDTO;
-import life.majiang.community.community.service.QuestionService;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import life.majiang.community.dto.QuestionDTO;
+import life.majiang.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

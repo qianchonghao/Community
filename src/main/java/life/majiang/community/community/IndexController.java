@@ -1,8 +1,8 @@
-package life.majiang.community.community.Community;
+package life.majiang.community.community;
 
 
-import life.majiang.community.community.dto.PageDTO;
-import life.majiang.community.community.service.QuestionService;
+import life.majiang.community.dto.PageDTO;
+import life.majiang.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

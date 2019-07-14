@@ -42,5 +42,8 @@ CREATE CACHED TABLE PUBLIC.USER(
               <version>3.14.1</version>
           </dependency>
 ```
- test 
 
+bash
+```
+mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate
+```

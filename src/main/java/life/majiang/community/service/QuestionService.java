@@ -1,11 +1,13 @@
-package life.majiang.community.community.service;
+package life.majiang.community.service;
 
-import life.majiang.community.community.dto.PageDTO;
-import life.majiang.community.community.dto.QuestionDTO;
-import life.majiang.community.community.mapper.QuestionMapper;
-import life.majiang.community.community.mapper.UserMapper;
-import life.majiang.community.community.model.Question;
-import life.majiang.community.community.model.User;
+import life.majiang.community.dto.PageDTO;
+import life.majiang.community.dto.QuestionDTO;
+import life.majiang.community.mapper.QuestionMapper;
+import life.majiang.community.mapper.UserMapper;
+import life.majiang.community.model.Question;
+import life.majiang.community.model.QuestionExample;
+import life.majiang.community.model.User;
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +19,7 @@ import java.util.List;
 //组装的中间层 将questionMapper和UserMapper组装
 public class QuestionService {
     @Autowired
-    private QuestionMapper questionMapper;
+    public QuestionMapper questionMapper;
 
     @Autowired
     private UserMapper userMapper;
@@ -29,7 +31,11 @@ public class QuestionService {
         // size*(page -1)
         //offset 和size作用：questionMapper内选取数据库question信息
         Integer totalPage;
-        Integer totalCount = questionMapper.count();
+        Integer totalCount;
+
+
+        totalCount= (int)(questionMapper.countByExample(new QuestionExample()));
+     //   totalCount= questionMapper.count();
 
         if(totalCount% size ==0){
             totalPage=totalCount/size;
@@ -46,10 +52,13 @@ public class QuestionService {
         PageDTO pageDTO = new PageDTO();
 
         List<QuestionDTO> list = new ArrayList<QuestionDTO>();
-        List<Question> questions = questionMapper.getList(offset, size);
+
+
+        List<Question> questions = questionMapper.selectByExampleWithRowbounds(new QuestionExample(),new RowBounds(offset,size));
+        //getList(offset, size);
 
         for (Question question : questions) {
-            User user = userMapper.findById(question.getCreator());
+            User user = userMapper.selectByPrimaryKey(question.getCreator());
             QuestionDTO questionDTO = new QuestionDTO();
             BeanUtils.copyProperties(question, questionDTO);//将同名的变量由 question--->questionDTO
             questionDTO.setUser(user);
@@ -69,7 +78,9 @@ public class QuestionService {
         //offset 和size作用：questionMapper内选取数据库question信息，
         // 此处question信息选取条件是id决定，所以不需要offset
         Integer totalPage;
-        Integer totalCount = questionMapper.MyCount(id);
+        QuestionExample example = new QuestionExample();
+        example.createCriteria().andCreatorEqualTo(id);
+        Integer totalCount = (int)questionMapper.countByExample(example);
 
         if(totalCount% size ==0){
             totalPage=totalCount/size;
@@ -87,10 +98,13 @@ public class QuestionService {
         PageDTO pageDTO = new PageDTO();
 
         List<QuestionDTO> list = new ArrayList<QuestionDTO>();
-        List<Question> questions = questionMapper.getListById(id,offset,size);
+
+        QuestionExample example1 = new QuestionExample();
+        example1.createCriteria().andCreatorEqualTo(id);
+        List<Question> questions=questionMapper.selectByExampleWithRowbounds(example1,new RowBounds(offset,size));
 
         for (Question question : questions) {
-            User user = userMapper.findById(question.getCreator());
+            User user = userMapper.selectByPrimaryKey(question.getCreator());
             QuestionDTO questionDTO = new QuestionDTO();
             BeanUtils.copyProperties(question, questionDTO);//将同名的变量由 question--->questionDTO
             questionDTO.setUser(user);
@@ -105,11 +119,27 @@ public class QuestionService {
 
     public QuestionDTO getById(Integer id) {
         //此处id是 question的主键ID 是唯一的。userId对应的是question.creator
-        Question question = questionMapper.getById(id);
-        User user = userMapper.findById(question.getCreator());
+        Question question = questionMapper.selectByPrimaryKey(id);
+        User user = userMapper.selectByPrimaryKey(question.getCreator());
         QuestionDTO questionDTO =new QuestionDTO();
         BeanUtils.copyProperties(question,questionDTO);
         questionDTO.setUser(user);
         return  questionDTO;
+    }
+
+
+    public void updateOrCreate(Question question, Integer questionId) {
+        if(questionId!=0){
+
+            question.setGmtModified(System.currentTimeMillis());
+
+            QuestionExample example = new QuestionExample();
+            example.createCriteria().andIdEqualTo(questionId);
+            questionMapper.updateByExample(question, example);
+        }else{
+            question.setGmtCreate(System.currentTimeMillis());
+            question.setGmtModified(question.getGmtCreate());
+            questionMapper.insert(question);
+        }
     }
 }

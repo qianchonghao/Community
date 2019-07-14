@@ -1,12 +1,14 @@
-package life.majiang.community.community.Community;
+package life.majiang.community.community;
 
-import life.majiang.community.community.mapper.QuestionMapper;
-import life.majiang.community.community.model.Question;
-import life.majiang.community.community.model.User;
+import life.majiang.community.mapper.QuestionMapper;
+import life.majiang.community.model.Question;
+import life.majiang.community.model.User;
+import life.majiang.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -23,6 +25,9 @@ public class PublishController {
     private QuestionMapper questionMapper;
 
 
+    @Autowired
+    private QuestionService questionService;
+
     @GetMapping("/publish")
     public String publish(){
         return "publish";
@@ -31,12 +36,13 @@ public class PublishController {
     public  String doPublish(@RequestParam(value = "title",required = false) String title,
                              @RequestParam(value ="description",required = false) String description,
                              @RequestParam(value ="tag",required = false) String tag,
+                             @RequestParam(value ="questionId",required = false,defaultValue = "0") String questionIdStr,
                              HttpServletRequest request,
                              Model model)
     {
 
         Question question = new Question();
-
+        Integer questionId=Integer.valueOf(questionIdStr);
 
         model.addAttribute("title",title);
         model.addAttribute("description",description);
@@ -64,23 +70,30 @@ public class PublishController {
             model.addAttribute("error","用户未登录");
             //model 内的attribute会和html交互
             return "publish";
-        }else{
+        }else {
 
             question.setTitle(title);
             question.setDescription(description);
             question.setTag(tag);
-            question.setGmtCreate(System.currentTimeMillis());
-            question.setGmtModified(question.getGmtCreate());
             question.setCreator(user.getId());
+            questionService.updateOrCreate(question,questionId);
 
-
-            questionMapper.getQuestion(question);
             return "redirect:/";
         }
 
 
+    }
 
-
+    @GetMapping("/publish/{id}")//编辑按钮link至此
+    public String edit(@PathVariable("id") Integer questionId,
+                        Model model){
+        model.addAttribute("questionId",questionId);
+        Question question = questionMapper.selectByPrimaryKey(questionId);
+        model.addAttribute("title",question.getTitle());
+        model.addAttribute("description",question.getDescription());
+        //此处三个model.addAttribute()是为了实现编辑页面的回显
+        model.addAttribute("tag",question.getTag());
+        return "publish";//跳转回发布页面？
     }
 
 }

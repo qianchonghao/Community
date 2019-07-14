@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+      <!--数据库URL 驱动类 用户密码-->
+    <context id="H2Tables" targetRuntime="MyBatis3">
+        <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"></plugin>
+        <jdbcConnection driverClass="org.h2.Driver"
+                        connectionURL="jdbc:h2:~/community"
+                        userId="sa"
+                        password="123">
+        </jdbcConnection>
+
+        <javaTypeResolver >
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+
+        <!--生成model的位置-->
+        <javaModelGenerator targetPackage="life.majiang.community.community.model" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <!--生成Mapper.xml中sql语句的位置-->
+        <sqlMapGenerator targetPackage="mapper"  targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+
+
+        <!--生成mapper的位置-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="life.majiang.community.community.mapper"  targetProject="src/main/java">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+
+        <!--实现数据库的映射-->
+        <table tableName="user" domainObjectName="User" >
+            <property name="useActualColumnNames" value="false"/><!--转换成驼峰标识-->
+            <!--generatedKey column="ID" sqlStatement="DB2" identity="true" /-->
+            <!--columnOverride column="DATE_FIELD" property="startDate" /-->
+            <!--ignoreColumn column="FRED" />
+            <columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR" /-->
+        </table>
+        <!--每一个数据库的映射都要添加一个table，然后在控制台输入maven-->
+        <table tableName="question" domainObjectName="Question" >
+            <!--tableName对应数据库名，domainObjectName对应创建一系列mapper model名字的前缀，两者不要相同-->
+            <property name="useActualColumnNames" value="false"/><!--转换成驼峰标识-->
+        </table>
+
+    </context>
+</generatorConfiguration>

@@ -1,4 +1,4 @@
-package life.majiang.community.community.dto;
+package life.majiang.community.dto;
 //dto内的bean实质是和github沟通
 import lombok.Data;
 

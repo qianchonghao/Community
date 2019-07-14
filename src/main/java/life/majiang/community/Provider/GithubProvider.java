@@ -1,7 +1,7 @@
-package life.majiang.community.community.Provider;
+package life.majiang.community.Provider;
 import com.alibaba.fastjson.JSON;
-import life.majiang.community.community.dto.AccessToeknDTO;
-import life.majiang.community.community.dto.GithubUser;
+import life.majiang.community.dto.AccessToeknDTO;
+import life.majiang.community.dto.GithubUser;
 import okhttp3.*;
 import org.springframework.stereotype.Component;
 import java.io.IOException;
@@ -40,6 +40,7 @@ public class GithubProvider {
             String str = response.body().string();
             String tokenStr = str.split("&")[0];
             String token = tokenStr.split("=")[1];
+            System.out.println(token);
             return token;
 
              } catch (Exception e) {
