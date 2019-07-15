@@ -48,6 +48,8 @@
             <!--tableName对应数据库名，domainObjectName对应创建一系列mapper model名字的前缀，两者不要相同-->
             <property name="useActualColumnNames" value="false"/><!--转换成驼峰标识-->
         </table>
-
+        <table tableName="comment" domainObjectName="Comment" >
+            <property name="useActualColumnNames" value="false"/>
+        </table>
     </context>
 </generatorConfiguration>
