@@ -29,5 +29,13 @@
     VIEW_COUNT = #{record.viewCount,jdbcType=INTEGER}+VIEW_COUNT
     where id = #{record.id}
   </update>
+  <update id="incComment" parameterType="map">
+    <!--parameterType，是指引入变量的类型 -->
+    <!--在MapperExt.java中参数的传递使用了@Param("record") 因此此处paraMeterType = map -->
+    update QUESTION
+    set
+    COMMENT_COUNT = #{record.commentCount,jdbcType=INTEGER}+COMMENT_COUNT
+    where id = #{record.id}
+  </update>
 
 </mapper>

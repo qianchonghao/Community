@@ -11,6 +11,15 @@
     <script src="/js/bootstrap.min.js" ></script>
 
 <body>
+<script type="application/javascript">
+    window.onload = function(){
+        var closable =window.localStorage.getItem("closable");
+        if(closable=="true")
+            window.close();
+        window.localStorage.removeItem("closable");
+    }
+
+</script>
 <div th:insert="navigation :: nav"></div>
 
 <div class="container-fluid main" th:if="session.user!=null">

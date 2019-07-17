@@ -9,4 +9,5 @@ import java.util.List;
 
 public interface QuestionMapperExt {
     int incView(@Param("record") Question record);
+    int incComment(@Param("record") Question record);
 }

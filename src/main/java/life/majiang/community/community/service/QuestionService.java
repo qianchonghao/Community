@@ -76,7 +76,7 @@ public class QuestionService {
     }
 
 
-    public PageDTO getMyPageDTO(Integer id,Integer page, Integer size) {
+    public PageDTO getMyPageDTO(Long id,Integer page, Integer size) {
         //size 計算 --->totalPage---->关乎ShowEnd等boolean变量设置
         // offset=size*(page -1)
         //offset 和size作用：questionMapper内选取数据库question信息，
@@ -121,7 +121,7 @@ public class QuestionService {
         return pageDTO;
     }
 
-    public QuestionDTO getById(Integer id) {
+    public QuestionDTO getById(Long id) {
         //此处id是 question的主键ID 是唯一的。userId对应的是question.creator
         Question question = questionMapper.selectByPrimaryKey(id);
         if(question==null){
@@ -136,7 +136,7 @@ public class QuestionService {
     }
 
 
-    public void updateOrCreate(Question question, Integer questionId) {
+    public void updateOrCreate(Question question, Long questionId) {
         if(questionId!=0){
 
             question.setGmtModified(System.currentTimeMillis());
@@ -154,7 +154,7 @@ public class QuestionService {
         }
     }
 
-    public void incView(Integer id) {
+    public void incView(Long id) {
 
         Question question = new Question();
         question.setId(id);

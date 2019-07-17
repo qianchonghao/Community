@@ -5,6 +5,7 @@ import life.majiang.community.community.dto.GithubUser;
 import okhttp3.*;
 import org.springframework.stereotype.Component;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 /*
 1.想通过GithubProvider 携带access_token&code 访问github
@@ -20,7 +21,10 @@ public class GithubProvider {
         MediaType mediaType
                 = MediaType.get("application/json; charset=utf-8");
         //MediaType作用：给Json数据一种格式要求？
-        OkHttpClient client = new OkHttpClient();
+       // OkHttpClient client = new OkHttpClient();
+        OkHttpClient client = new OkHttpClient().newBuilder().connectTimeout(50000, TimeUnit.MILLISECONDS)
+                .readTimeout(50000, TimeUnit.MILLISECONDS)
+                .build();//扩大相应时间
         /*
         实现accessTokenDTO -->JSon数据 -->RequestBody
         根据accessTokenDTO建立请求体

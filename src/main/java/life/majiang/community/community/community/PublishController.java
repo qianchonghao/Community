@@ -42,7 +42,7 @@ public class PublishController {
     {
 
         Question question = new Question();
-        Integer questionId=Integer.valueOf(questionIdStr);
+        long questionId=Integer.valueOf(questionIdStr);
 
         model.addAttribute("title",title);
         model.addAttribute("description",description);
@@ -85,7 +85,7 @@ public class PublishController {
     }
 
     @GetMapping("/publish/{id}")//编辑按钮link至此
-    public String edit(@PathVariable("id") Integer questionId,
+    public String edit(@PathVariable("id") long questionId,
                         Model model){
         model.addAttribute("questionId",questionId);
         Question question = questionMapper.selectByPrimaryKey(questionId);

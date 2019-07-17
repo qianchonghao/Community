@@ -33,3 +33,44 @@ body{
 .jumbotron{
  margin: 0px;
 }
+.profile-img{
+    margin-left: -15px;
+}
+.profile-name{
+    margin-top: 0px;
+}
+.comment{
+    margin-top: 50px;
+}
+.comment-button{
+    margin: 15px 0 15px 0;
+    float: right;
+}
+.comment-hr{
+    margin-top: 0;
+}
+.edit{
+    float: right;
+}
+.comment-like{
+    margin-top: 15px;
+    font-size:17px;
+    cursor: pointer;
+}
+.comment-comment{
+    font-size:17px;
+    margin-left: 20px;
+    margin-top: 15px;
+    cursor: pointer;//指针悬浮时候 出现小手
+
+}
+
+.menu{
+    color: #999999;
+}
+.comment-comment:hover{
+     color: #2b669a;
+ }
+.comment-like:hover{
+    color: #2b669a;
+}
