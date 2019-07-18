@@ -56,9 +56,12 @@ public class QuestionService {
         PageDTO pageDTO = new PageDTO();
 
         List<QuestionDTO> list = new ArrayList<QuestionDTO>();
+        //两个问题 QuestionDTO 没有description
+        //question date html显示有问题
 
-
-        List<Question> questions = questionMapper.selectByExampleWithRowbounds(new QuestionExample(),new RowBounds(offset,size));
+        QuestionExample example = new QuestionExample();
+        example.setOrderByClause("gmt_create DESC");
+        List<Question> questions = questionMapper.selectByExampleWithRowbounds(example,new RowBounds(offset,size));
         //getList(offset, size);
 
         for (Question question : questions) {
@@ -105,6 +108,7 @@ public class QuestionService {
 
         QuestionExample example1 = new QuestionExample();
         example1.createCriteria().andCreatorEqualTo(id);
+        example1.setOrderByClause("gmt_create DESC");
         List<Question> questions=questionMapper.selectByExampleWithRowbounds(example1,new RowBounds(offset,size));
 
         for (Question question : questions) {
@@ -138,14 +142,12 @@ public class QuestionService {
 
     public void updateOrCreate(Question question, Long questionId) {
         if(questionId!=0){
-         /*   question.setLikeCount(question.getLikeCount());
-            question.setCommentCount(question.getCommentCount());
-            question.setViewCount(question.getViewCount());*/
+
             question.setGmtModified(System.currentTimeMillis());
             question.setId(questionId);
             Question temp = questionMapper.selectByPrimaryKey(questionId);
 
-            question.setId(temp.getId());
+           question.setId(temp.getId());
             question.setViewCount(temp.getViewCount());
             question.setCommentCount(temp.getCommentCount());
             question.setLikeCount(temp.getLikeCount());
@@ -161,9 +163,11 @@ public class QuestionService {
         }else{
             question.setGmtCreate(System.currentTimeMillis());
             question.setGmtModified(question.getGmtCreate());
+
             question.setLikeCount(0);
             question.setCommentCount(0);
             question.setViewCount(0);
+
             questionMapper.insert(question);
         }
     }

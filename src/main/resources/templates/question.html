@@ -16,6 +16,7 @@
 
 <div class="container-fluid main" th:if="session.user!=null">
     <div class="row">
+<!--        左边主要内容-->
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
             <!-- 正文 -->
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -36,14 +37,16 @@
                 <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             </div>
             <!--回复-->
-            <h4>
+            <h4 class=" col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <!--h4表明内容size，其内容都在同一层，通过内置span使所有信息在同一层排列-->
                 <span th:text="${questionDTO.commentCount}"></span>个回复
+                <hr class="comment-hr col-lg-12 col-md-12 col-sm-12 col-xs-12">
             </h4>
-            <hr class="comment-hr col-lg-12 col-md-12 col-sm-12 col-xs-12">
-    <!--            回复列表-->
+
+            <!--            回复列表-->
             <div th:each="commentDTO:${commentDTOS}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12  comment-section">
-                <div class="media col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                <div class="media col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
                     <div class="media-left ">
                         <a href="#">
                             <img class="media-object img-thumbnail profile-img" th:src="${commentDTO.user.avatarUrl}"
@@ -68,8 +71,9 @@
 
             </div>
             <!--          回复框输入-->
-            <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="comment_section">
+
                 <div class="media col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="media-left ">
                         <a href="#">
@@ -92,8 +96,9 @@
                 <!--comment th:value 直接由 textarea内容赋值-->
                 <button type="button" class="btn btn-success comment-button" onclick="post()">回复</button>
             </div>
-            <!--           发起人信息 -->
+            <!--发起人信息 -->
         </div>
+<!--        右边内容-->
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <h4>发起人</h4>

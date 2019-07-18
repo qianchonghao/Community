@@ -38,6 +38,7 @@ commentService 对应commentDTO三个field进行检查，有问题则抛出异�
  */
 @Transactional//保持下方函数 原子性
 public void insert(Comment comment) {
+
     if (comment.getParentId() == null || comment.getParentId() == 0) {
         throw new CustomizeException(CustomizeErrorCode.TARGET_PARAM_NOT_FOUND);
     }
@@ -67,6 +68,8 @@ public void insert(Comment comment) {
         commentExample.createCriteria().
                 andParentIdEqualTo(questionId).
                 andTypeEqualTo(CommentTypeEnum.QUESTION.getType());
+        commentExample.setOrderByClause("gmt_create DESC");
+        //写入关键字 递增排序为 ASC 递减排序为DESC
         List<Comment> comments = commentMapper.selectByExample(commentExample);
         if (comments.size() == 0) {
             return new ArrayList<>();

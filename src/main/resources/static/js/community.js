@@ -5,6 +5,11 @@ function post() {
 
     console.log(questionId);//等同system.out
     console.log(content);
+    if(!content){
+        alert("不能回复空内容.js");//alert和confirm都会跳出确认框，但confirm确认后会返回值
+        //confirm("不能回复空内容.js");
+        return;
+    }
     $.ajax({
         type: "POST",
         url: "/comment",//url 要开头加/ 来定位起始位置
@@ -17,7 +22,8 @@ function post() {
         success: function(response){
             console.log(response);
             if(response.code==200){
-                $("#comment_section").hide();
+               // $("#comment_section").hide();//隐藏html模块
+                window.location.reload();
             }else{
                 if(response.code==2003){
                     var isAccepted=confirm(response.message);//跳出确定框，点击确定后 isAccepted为1
