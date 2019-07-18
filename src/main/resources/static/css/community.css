@@ -74,3 +74,7 @@ body{
 .comment-like:hover{
     color: #2b669a;
 }
+.comment-section{
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eeeeee;
+}

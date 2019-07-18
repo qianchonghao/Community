@@ -138,8 +138,19 @@ public class QuestionService {
 
     public void updateOrCreate(Question question, Long questionId) {
         if(questionId!=0){
-
+         /*   question.setLikeCount(question.getLikeCount());
+            question.setCommentCount(question.getCommentCount());
+            question.setViewCount(question.getViewCount());*/
             question.setGmtModified(System.currentTimeMillis());
+            question.setId(questionId);
+            Question temp = questionMapper.selectByPrimaryKey(questionId);
+
+            question.setId(temp.getId());
+            question.setViewCount(temp.getViewCount());
+            question.setCommentCount(temp.getCommentCount());
+            question.setLikeCount(temp.getLikeCount());
+            question.setGmtCreate(temp.getGmtCreate());
+            question.setCreator(temp.getCreator());
 
             QuestionExample example = new QuestionExample();
             example.createCriteria().andIdEqualTo(questionId);
@@ -150,6 +161,9 @@ public class QuestionService {
         }else{
             question.setGmtCreate(System.currentTimeMillis());
             question.setGmtModified(question.getGmtCreate());
+            question.setLikeCount(0);
+            question.setCommentCount(0);
+            question.setViewCount(0);
             questionMapper.insert(question);
         }
     }
