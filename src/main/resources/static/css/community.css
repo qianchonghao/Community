@@ -78,3 +78,19 @@ body{
     margin-bottom: 15px;
    border-bottom: 1px solid #eeeeee;
 }
+.question-title{
+    margin-top: 15px;
+}
+.comment-active{
+    color:#2b669a;
+}
+.sub-comment{
+    margin-top: 15px;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    padding-top: 15px;
+    margin-bottom: 15px;
+}
+.sub-comment-btn{
+    margin: 10px 0;
+}

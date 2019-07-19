@@ -1,8 +1,8 @@
 package life.majiang.community.community.community;
 
-import life.majiang.community.community.dto.CommentCreateDTO;
 import life.majiang.community.community.dto.CommentDTO;
 import life.majiang.community.community.dto.QuestionDTO;
+import life.majiang.community.community.enums.CommentTypeEnum;
 import life.majiang.community.community.service.CommentService;
 import life.majiang.community.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +31,7 @@ public class questionController {
             Model model
     ) {
         List<CommentDTO> commentDTOS = new ArrayList<CommentDTO>();
-        commentDTOS = commentService.getCommentListByQuesetionId(questionId);
+        commentDTOS = commentService.getCommentListById(questionId, CommentTypeEnum.QUESTION.getType());
 
         QuestionDTO questionDTO = questionService.getById(questionId);
         model.addAttribute("questionDTO",questionDTO);

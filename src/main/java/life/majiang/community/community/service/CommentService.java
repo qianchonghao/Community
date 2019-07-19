@@ -2,13 +2,9 @@ package life.majiang.community.community.service;
 
 import life.majiang.community.community.Exception.CustomizeErrorCode;
 import life.majiang.community.community.Exception.CustomizeException;
-import life.majiang.community.community.dto.CommentCreateDTO;
 import life.majiang.community.community.dto.CommentDTO;
 import life.majiang.community.community.enums.CommentTypeEnum;
-import life.majiang.community.community.mapper.CommentMapper;
-import life.majiang.community.community.mapper.QuestionMapper;
-import life.majiang.community.community.mapper.QuestionMapperExt;
-import life.majiang.community.community.mapper.UserMapper;
+import life.majiang.community.community.mapper.*;
 import life.majiang.community.community.model.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,6 +27,9 @@ public class CommentService {
     private QuestionMapperExt questionMapperExt;
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private CommentMapperExt commentMapperExt;
+
 
 /*
 commentService 对应commentDTO三个field进行检查，有问题则抛出异常
@@ -58,22 +56,31 @@ public void insert(Comment comment) {
         //回复评论
         Comment dbComment = commentMapper.selectByPrimaryKey(comment.getParentId());
         if (dbComment == null) throw new CustomizeException(CustomizeErrorCode.COMMENT_NOT_FOUND);
+        Comment temp = dbComment;
+        temp.setCommentCount(1);
+        commentMapperExt.incCommentCount(temp);
+
     }
     commentMapper.insert(comment);
 
 }
 
-    public List<CommentDTO> getCommentListByQuesetionId(Long questionId) {
+    public List<CommentDTO> getCommentListById(Long targetId, Integer type) {
         CommentExample commentExample = new CommentExample();
         commentExample.createCriteria().
-                andParentIdEqualTo(questionId).
-                andTypeEqualTo(CommentTypeEnum.QUESTION.getType());
+                andParentIdEqualTo(targetId).
+                andTypeEqualTo(type);
+        //Ctrl+Alt+p 抽取参数
+        //Ctrl+Alt+v 抽取变量
+        //Ctrl+Alt+i 抽取方法 hgtyuiopoiuytrew
+
         commentExample.setOrderByClause("gmt_create DESC");
         //写入关键字 递增排序为 ASC 递减排序为DESC
         List<Comment> comments = commentMapper.selectByExample(commentExample);
         if (comments.size() == 0) {
             return new ArrayList<>();
         }
+
         //获取去重的评论人
         Set<Long> commentators =
                 comments.stream().map(comment -> comment.getCommentator()).collect(Collectors.toSet());

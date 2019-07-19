@@ -10,17 +10,18 @@
     <script src="/js/jquery-3.4.1.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/community.js"></script>
+    <script src="/js/moment.js"></script>
 
 <body>
 <div th:insert="navigation :: nav"></div>
 
 <div class="container-fluid main" th:if="session.user!=null">
     <div class="row">
-<!--        左边主要内容-->
+        <!--        左边主要内容-->
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
             <!-- 正文 -->
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <h4 th:text="${questionDTO.title}"></h4>
+                <h4 th:text="${questionDTO.title}" class="question-title"></h4>
                 <div class="community-menu">
                     <span th:text="'作者：'+${questionDTO.user.name}+'|'"></span>
                     <span th:text="'发布时间：'+${#dates.format(questionDTO.gmtCreate,'yyyy-MM-dd hh:mm')}+'|'"></span>
@@ -53,7 +54,7 @@
                             >
                         </a>
                     </div>
-                    <div class="media-body">
+                    <div class="media-body" th:id="'comment-body-'+${commentDTO.id}">
 
                         <h5 class="profile-name" th:text="${commentDTO.user.name}"></h5>
 
@@ -61,21 +62,40 @@
                         <!--社交功能-->
                         <div class="menu">
                             <span class="glyphicon glyphicon-thumbs-up comment-like" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-comment comment-comment " aria-hidden="true"></span>
+                            <span class="glyphicon glyphicon-comment comment-comment " th:data-id="${commentDTO.id}"
+                                  onclick="collapseComments(this)" th:text="${commentDTO.commentCount}"></span>
+                            <!--collapse 两部分组成 一部分是触发按钮[link也能实现]:type="button" class="btn" data-target= "#collapseExample"//对id=collapseExample为作用目标 data-toggle="collapse"//切换状态>
+                                <！-- 第二部分：taget部分 class=“collapse” id="collapseExample"-->
                             <span th:text="${#dates.format(commentDTO.gmtCreate,'yyyy-MM-dd')}"
                                   class="pull-right "></span>
+
+                        </div>
+                        <!--二级评论-->
+                        <!--                        后端二级评论写入数据库已经完成，前端如何传入二级评论信息：parentId content 前端如何显示一级评论下方的二级评论？-->
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 collapse sub-comment "
+                             th:id="'comment-'+${commentDTO.id}">
+                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12  sub-comment ">
+                                 <!--                                注意 回复列表部分属于 foreach范围，id命名需要使用 th:id-->
+                                <!-- commentId通过th：data传入js function-->
+                                <input type="text" class="form-control" placeholder="评论一下"
+                                       th:id="'input-'+${commentDTO.id}" >
+                                <button type="button" class="btn btn-success pull-right sub-comment-btn" th:data-id="${commentDTO.id}"
+                                        onclick="insertSubComment(this)">评论
+                                </button>
+<!--                                th：data 信息要和 onclik在同一条语句-->
+                            </div>
                         </div>
                         <br>
                     </div>
                 </div>
-
             </div>
             <!--          回复框输入-->
 
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="comment_section">
-
+                <h4>提交回复</h4>
                 <div class="media col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="media-left ">
+
                         <a href="#">
                             <img class="media-object img-thumbnail profile-img" th:src="${questionDTO.user.avatarUrl}"
                             >
@@ -98,7 +118,7 @@
             </div>
             <!--发起人信息 -->
         </div>
-<!--        右边内容-->
+        <!--        右边内容-->
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <h4>发起人</h4>
@@ -113,7 +133,6 @@
                         <h3 class="media-heading" style="font-size: medium;">
                             <span clas=“community-menu”th:text="${questionDTO.title}"
                                   th:href="@{'/question/'+${questionDTO.id}}">
-
                             </span>
                         </h3>
                         <h5 th:text="${questionDTO.user.name}"></h5><br>
