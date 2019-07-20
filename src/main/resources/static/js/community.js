@@ -16,12 +16,15 @@ function post() {
         var collapse = e.getAttribute("data-collapse");
         var id =e.getAttribute("data-id");//获得本条html语句上的attribute
         var subCommentContainer = $("#comment-"+id);
+
         if(!collapse){
+
             if(subCommentContainer.children().length!=1){//判斷是否加载过，加载过则直接展开评论
                 subCommentContainer.addClass("in");//展开二级评论
                 e.setAttribute("data-collapse","in");//标记二级评论展开状态
                 e.classList.add("comment-active");
             }else{
+
                 $.getJSON( "/comment/"+id,function( data ) {//getJSON是经由jquery分装的js，联通后端和js，他通过访问url，返回JSONString的data
 
                     $.each( data.data.reverse(), function( index,commentDTO ) {//foreach循环，前半部分是合集，后半部分是从合集提取的属性
@@ -71,7 +74,7 @@ function post() {
                         // html:comment.content
 
                         subCommentContainer.prepend(commentElement);//在父级前面追加一个子元素
-
+                        debugger
                     });
 
 
@@ -83,9 +86,10 @@ function post() {
                 });
             }
         }else{
+
             //折叠二级评论
 
-            comments.removeClass("in");
+            subCommentContainer.removeClass("in");
             e.removeAttribute("data-collapse");
             e.classList.remove("comment-active");
 
