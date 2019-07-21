@@ -32,10 +32,11 @@ public class questionController {
     ) {
         List<CommentDTO> commentDTOS = new ArrayList<CommentDTO>();
         commentDTOS = commentService.getCommentListById(questionId, CommentTypeEnum.QUESTION.getType());
-
         QuestionDTO questionDTO = questionService.getById(questionId);
+        List<QuestionDTO>relatedQuestions=questionService.selectRelated(questionDTO);
         model.addAttribute("questionDTO",questionDTO);
         model.addAttribute("commentDTOS",commentDTOS);
+        model.addAttribute("relatedQuestions",relatedQuestions);
         questionService.incView(questionId);
 
         return "question";

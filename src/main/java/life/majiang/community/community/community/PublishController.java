@@ -1,5 +1,6 @@
 package life.majiang.community.community.community;
 
+import life.majiang.community.community.cache.TagCache;
 import life.majiang.community.community.mapper.QuestionMapper;
 import life.majiang.community.community.model.Question;
 import life.majiang.community.community.model.User;
@@ -29,7 +30,8 @@ public class PublishController {
     private QuestionService questionService;
 
     @GetMapping("/publish")
-    public String publish(){
+    public String publish(Model model){
+        model.addAttribute("tagDTOS", TagCache.get());
         return "publish";
     }
     @PostMapping("/publish")
@@ -47,6 +49,7 @@ public class PublishController {
         model.addAttribute("title",title);
         model.addAttribute("description",description);
         model.addAttribute("tag",tag);
+        model.addAttribute("tagDTOS", TagCache.get());
         //以上model操作是为了回显到页面
         if(title==null|| title==""){
             model.addAttribute("error","标题不能为空");
@@ -62,7 +65,10 @@ public class PublishController {
         }
         //提示是否内容填充完整
 
-
+       if(!TagCache.isValid(tag)) {
+           model.addAttribute("error","輸入非法标签");
+           return "publish";
+       }
 
         User user= (User) request.getSession().getAttribute("user");
 
@@ -87,6 +93,7 @@ public class PublishController {
     @GetMapping("/publish/{id}")//编辑按钮link至此
     public String edit(@PathVariable("id") long questionId,
                         Model model){
+        model.addAttribute("tagDTOS", TagCache.get());
         model.addAttribute("questionId",questionId);
         Question question = questionMapper.selectByPrimaryKey(questionId);
         model.addAttribute("title",question.getTitle());

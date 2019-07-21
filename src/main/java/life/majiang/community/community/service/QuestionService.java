@@ -10,13 +10,14 @@ import life.majiang.community.community.model.Question;
 import life.majiang.community.community.model.QuestionExample;
 import life.majiang.community.community.model.User;
 import life.majiang.community.community.dto.PageDTO;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 //组装的中间层 将questionMapper和UserMapper组装
@@ -178,5 +179,32 @@ public class QuestionService {
         question.setId(id);
         question.setViewCount(1);
         questionMapperExt.incView(question);
+    }
+
+    public List<QuestionDTO> selectRelated(QuestionDTO questionDTO) {
+        if(StringUtils.isBlank(questionDTO.getTag())){
+            return new ArrayList<>();
+        }else{
+
+
+            String[] tags=StringUtils.split(questionDTO.getTag(),',');
+            String regexTag=Arrays.stream(tags).collect(Collectors.joining("|"));
+            //delimeter 分隔符
+            Question question = new Question();
+            question.setId(questionDTO.getId());
+            question.setTag(regexTag);//通過StringJoiner 将tag转化成regex形式，然后set到参数question
+            List<Question>  questions=questionMapperExt.selectRelated(question);
+            List<QuestionDTO>questionDTOS=questions.stream().map(tempQuestion->{
+                QuestionDTO tempQuestionDTO = new QuestionDTO();
+                BeanUtils.copyProperties(tempQuestion,tempQuestionDTO);
+                //copyProperties(src，editable)
+                tempQuestionDTO.setUser(userMapper.selectByPrimaryKey(tempQuestion.getCreator()));
+                return tempQuestionDTO;
+                //user 是questionCreator 的具体用户信息
+            }).collect(Collectors.toList());
+            return questionDTOS;
+
+        }
+
     }
 }

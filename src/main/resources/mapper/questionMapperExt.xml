@@ -38,4 +38,7 @@
     where id = #{record.id}
   </update>
 
+  <select id="selectRelated" parameterType="map" resultMap="BaseResultMap">
+    select * from QUESTION where id!=#{record.id} and tag regexp #{record.tag}
+  </select>
 </mapper>

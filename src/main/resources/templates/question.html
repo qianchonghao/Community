@@ -23,13 +23,26 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <h4 th:text="${questionDTO.title}" class="question-title"></h4>
                 <div class="community-menu">
-                    <span th:text="'作者：'+${questionDTO.user.name}+'|'"></span>
-                    <span th:text="'发布时间：'+${#dates.format(questionDTO.gmtCreate,'yyyy-MM-dd hh:mm')}+'|'"></span>
+
+                    <span th:text="'作者：'+${questionDTO.user.name}+' | '"></span>
+                    <span th:text="'发布时间：'+${#dates.format(questionDTO.gmtCreate,'yyyy-MM-dd hh:mm')}+' | '"></span>
                     <span th:text="${questionDTO.viewCount}+'次浏览'"></span>
                 </div>
                 <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+<!--                内容-->
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" th:text="${questionDTO.description}">
                 </div>
+                <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+<!--                标签-->
+<!--                th:each="commentDTO:${commentDTOS}"-->
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <span class="label label-info question-tag" th:each="tagPiece:${#strings.listSplit(questionDTO.tag,',')}">
+                        <span class="glyphicon glyphicon-tags"></span>
+                        <span th:text="${tagPiece}"></span>
+                     </span>
+                </div>
+                <!--                编辑-->
+                <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <a th:if="${session.user!=null&&session.user.id==questionDTO.creator}"
                    th:href="@{'/publish/'+${questionDTO.id}}" class="community-menu edit">
                     <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
@@ -55,34 +68,37 @@
                         </a>
                     </div>
                     <div class="media-body" th:id="'comment-body-'+${commentDTO.id}">
-
                         <h5 class="profile-name" th:text="${commentDTO.user.name}"></h5>
-
                         <div th:text="${commentDTO.content}"></div>
                         <!--社交功能-->
                         <div class="menu">
                             <span class="glyphicon glyphicon-thumbs-up comment-like" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-comment comment-comment " th:data-id="${commentDTO.id}"
-                                  onclick="collapseComments(this)" th:text="${commentDTO.commentCount}"></span>
+<!--                            <span class="glyphicon glyphicon-comment comment-comment " th:data-id="${commentDTO.id}"-->
+<!--                                   th:text="${commentDTO.commentCount}"></span>-->
+                            <span class="comment-comment" th:data-id="${commentDTO.id}" onclick="collapseComments(this)">
+<!--                           外围span 以及其属性 class = comment-coment 将 评论图标和评论数字限制成一体，并且都有悬浮变蓝-->
+                                <span class="glyphicon glyphicon-comment  "></span>
+                                <span th:text="${commentDTO.commentCount}" class="comment-count"></span>
+                            </span>
                             <!--collapse 两部分组成 一部分是触发按钮[link也能实现]:type="button" class="btn" data-target= "#collapseExample"//对id=collapseExample为作用目标 data-toggle="collapse"//切换状态>
                                 <！-- 第二部分：taget部分 class=“collapse” id="collapseExample"-->
                             <span th:text="${#dates.format(commentDTO.gmtCreate,'yyyy-MM-dd')}"
                                   class="pull-right "></span>
-
                         </div>
                         <!--二级评论-->
-                        <!--                        后端二级评论写入数据库已经完成，前端如何传入二级评论信息：parentId content 前端如何显示一级评论下方的二级评论？-->
+                        <!--后端二级评论写入数据库已经完成，前端如何传入二级评论信息：parentId content 前端如何显示一级评论下方的二级评论？-->
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 collapse sub-comment "
                              th:id="'comment-'+${commentDTO.id}">
-                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12  sub-comment ">
-                                 <!--                                注意 回复列表部分属于 foreach范围，id命名需要使用 th:id-->
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12  sub-comment ">
+                                <!--注意 回复列表部分属于 foreach范围，id命名需要使用 th:id-->
                                 <!-- commentId通过th：data传入js function-->
                                 <input type="text" class="form-control" placeholder="评论一下"
-                                       th:id="'input-'+${commentDTO.id}" >
-                                <button type="button" class="btn btn-success pull-right sub-comment-btn" th:data-id="${commentDTO.id}"
+                                       th:id="'input-'+${commentDTO.id}">
+                                <button type="button" class="btn btn-success pull-right sub-comment-btn"
+                                        th:data-id="${commentDTO.id}"
                                         onclick="insertSubComment(this)">评论
                                 </button>
-<!--                                th：data 信息要和 onclik在同一条语句-->
+                                <!--th：data 信息要和 onclik在同一条语句-->
                             </div>
                         </div>
                         <br>
@@ -90,7 +106,6 @@
                 </div>
             </div>
             <!--          回复框输入-->
-
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="comment_section">
                 <h4>提交回复</h4>
                 <div class="media col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -141,8 +156,21 @@
                 <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
             </div>
+            <hr class="media col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h4>夠大了嗎</h4>
+                <img class="img" src="/image/PiKaQiu.jpg" alt="">
+            </div>
+<!--            相關問題-->
+            <hr class="media col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <h4>相关问题</h4>
+                <ul class="ul">
+                    <li  th:each="relatedQuestion:${relatedQuestions}" >
+                        <a class="a li" th:href="@{'/question/'+${relatedQuestion.id}}" th:text="${relatedQuestion.title}"></a>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>

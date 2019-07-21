@@ -2,6 +2,7 @@ package life.majiang.community.community.community;
 
 import life.majiang.community.community.dto.PageDTO;
 import life.majiang.community.community.model.User;
+import life.majiang.community.community.service.NotificationService;
 import life.majiang.community.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +19,8 @@ public class profileController {
 
     @Autowired
     QuestionService questionService;
-
+    @Autowired
+    private NotificationService notificationService;
     @GetMapping("/profile/{action}")
     public String profile(@PathVariable(name = "action") String action,
                           Model model,
@@ -32,15 +34,19 @@ public class profileController {
         if ("question".equals(action)) {//避免action为空
             model.addAttribute("section", "question");
             model.addAttribute("sectionName", "我的提问");
+            PageDTO pageDTO = questionService.getMyPageDTO(user.getId(), page, size);
+            model.addAttribute("pageDTO", pageDTO);
         }
         if ("replies".equals(action)) {//避免action为空
             model.addAttribute("section", "replies");
             model.addAttribute("sectionName", "最新回复");
+            PageDTO pageDTO = notificationService.getNotificationPage(user.getId(), page, size);
+            model.addAttribute("pageDTO", pageDTO);
+
         }
 
 
-        PageDTO pageDTO = questionService.getMyPageDTO(user.getId(), page, size);
-        model.addAttribute("pageDTO", pageDTO);
+
         return "profile";
     }
 }

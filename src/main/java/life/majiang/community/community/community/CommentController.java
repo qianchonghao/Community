@@ -25,6 +25,8 @@ public class CommentController {
     //@ResponseBody作用：将函数返回的Object--->序列化成JSON格式String
     @PostMapping (value = "/comment")//post是如何输入的？
 
+
+
     //需要client端口传输时候带有 @RequestBody标识
     public Object post(@RequestBody CommentCreateDTO commentCreateDTO,
                        HttpServletRequest request){

@@ -4,6 +4,8 @@ import life.majiang.community.community.Exception.CustomizeErrorCode;
 import life.majiang.community.community.Exception.CustomizeException;
 import life.majiang.community.community.dto.CommentDTO;
 import life.majiang.community.community.enums.CommentTypeEnum;
+import life.majiang.community.community.enums.NotificationStatusEnum;
+import life.majiang.community.community.enums.NotificationTypeEnum;
 import life.majiang.community.community.mapper.*;
 import life.majiang.community.community.model.*;
 import org.springframework.beans.BeanUtils;
@@ -29,7 +31,8 @@ public class CommentService {
     private UserMapper userMapper;
     @Autowired
     private CommentMapperExt commentMapperExt;
-
+    @Autowired
+    private NotificationMapper notificationMapper;
 
 /*
 commentService 对应commentDTO三个field进行检查，有问题则抛出异常
@@ -48,22 +51,42 @@ public void insert(Comment comment) {
         //回复问题
         Question question = questionMapper.selectByPrimaryKey(comment.getParentId());
         if (question == null) throw new CustomizeException(CustomizeErrorCode.TARGET_PARAM_NOT_FOUND);
+       //增加评论数
         Question question1 = new Question();
         question1.setId(comment.getParentId());
         question1.setCommentCount(1);
         questionMapperExt.incComment(question1);
+        //增加通知信息
+
+        createNotification(comment, question.getCreator(), NotificationTypeEnum.REPLY_QUESTION.getType());//ctrl+Alt+m 抽出方法
     } else {
         //回复评论
         Comment dbComment = commentMapper.selectByPrimaryKey(comment.getParentId());
         if (dbComment == null) throw new CustomizeException(CustomizeErrorCode.COMMENT_NOT_FOUND);
+        //增加一级评论的被评论数
         Comment temp = dbComment;
         temp.setCommentCount(1);
         commentMapperExt.incCommentCount(temp);
-
+        //增加Notification
+        createNotification(comment, dbComment.getCommentator(), NotificationTypeEnum.REPLY_COMMENT.getType());
     }
     commentMapper.insert(comment);
 
 }
+
+    private void createNotification(Comment comment, Long receiver, int notificationType) {//对着方法Ctrl+F6直接编辑
+        Notification notification = new Notification();
+        notification.setGmtCreate(System.currentTimeMillis());
+        notification.setStatus(NotificationStatusEnum.UNREAD.getStatus());//创建枚举类为了然阅读者理解 status.value对应的状态
+        notification.setOuterid(comment.getParentId());//被评论对象的id
+        notification.setNotifier(comment.getCommentator());//评论对象的创建者id
+        notification.setReceiver(receiver);//被评论对象的创建者
+        //通过ctrl+alt+p 抽取成参数
+        notification.setType(notificationType);
+        notificationMapper.insert(notification);
+    }
+
+
 
     public List<CommentDTO> getCommentListById(Long targetId, Integer type) {
         CommentExample commentExample = new CommentExample();

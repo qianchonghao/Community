@@ -11,4 +11,5 @@ import java.util.List;
 public interface CommentMapperExt {
 
     int incCommentCount(@Param("record") Comment record);
+    List<Question>selectRelated(Question record);
 }
