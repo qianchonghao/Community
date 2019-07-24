@@ -6,18 +6,14 @@ import lombok.Data;
 @Data
 public class NotificationDTO {
 
-    private Long notifier;
-    private Long receiver;
-    private Long outerid;
-
-
-
-
     private Long id;
     private Long gmtCreate;
     private Integer status;
-    private User user;
-    private String outrTile;
+    private Long notifier;
+    private String notifierName;
+    private String outerTitle;
+    private String typeName;
+    private Long outerid;
     private Integer type;
 
 

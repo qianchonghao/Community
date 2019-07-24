@@ -3,7 +3,7 @@
 <head>
     <title th:text="${questionDTO.title}"></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-
+    <link rel="stylesheet" href="/css/editormd.preview.min.css">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/css/community.css">
@@ -11,6 +11,9 @@
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/community.js"></script>
     <script src="/js/moment.js"></script>
+    <script src="/js/editormd.min.js" type="application/javascript"></script>
+    <script src="/js/lib/marked.min.js"></script>
+    <script src="/js/lib/prettify.min.js"></script>
 
 <body>
 <div th:insert="navigation :: nav"></div>
@@ -30,8 +33,15 @@
                 </div>
                 <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 <!--                内容-->
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" th:text="${questionDTO.description}">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="question-view">
+                    <textarea th:text="${questionDTO.description}" style="display: none" >
+                    </textarea>
                 </div>
+                <script type="text/javascript">
+                    $(function () {
+                        editormd.markdownToHTML("question-view",{});
+                    });
+                </script>
                 <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 <!--                标签-->
 <!--                th:each="commentDTO:${commentDTOS}"-->
@@ -110,11 +120,7 @@
                 <h4>提交回复</h4>
                 <div class="media col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="media-left ">
-
-                        <a href="#">
-                            <img class="media-object img-thumbnail profile-img" th:src="${questionDTO.user.avatarUrl}"
-                            >
-                        </a>
+                            <img class="media-object img-thumbnail profile-img" th:src="${session.user!=null?session.user.avatarUrl:'/images/touxiang.png'}">
                     </div>
                     <div class="media-body">
                         <h3 class="media-heading" style="font-size: medium;">
@@ -123,7 +129,7 @@
 
                             </span>
                         </h3>
-                        <h5 class="profile-name" th:text="${questionDTO.user.name}"></h5><br>
+                        <h5 class="profile-name" th:text="${session.user!=null?session.user.name:'匿名用户'}"></h5><br>
                     </div>
                 </div>
                 <input type="hidden" id="questionId" th:value="${questionDTO.id}">
@@ -160,9 +166,12 @@
 
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <h4>夠大了嗎</h4>
-                <img class="img" src="/image/PiKaQiu.jpg" alt="">
+                <img class="img" src="/images/PiKaQiu.jpg" >
             </div>
-<!--            相關問題-->
+
+
+            <!--            相關問題-->
+
             <hr class="media col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <h4>相关问题</h4>
@@ -175,5 +184,6 @@
         </div>
     </div>
 </div>
+<div th:insert="~{footer :: foot}"></div>
 </body>
 </html>

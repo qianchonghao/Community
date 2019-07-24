@@ -41,4 +41,25 @@
   <select id="selectRelated" parameterType="map" resultMap="BaseResultMap">
     select * from QUESTION where id!=#{record.id} and tag regexp #{record.tag}
   </select>
+
+  <select id="countBySearch" parameterType="map" resultType="java.lang.Integer">
+    select count(*) from QUESTION
+    <where>
+    <if test = "query.search!=null">
+      and title regexp #{query.search}
+    </if>
+    </where>
+
+  </select>
+
+  <select id="selectBySearchWithRowbounds" parameterType="life.majiang.community.community.dto.QuestionQueryDTO" resultMap="BaseResultMap">
+    select * from QUESTION
+    <where>
+      <if test = "search!=null">
+        and title regexp #{search}
+      </if>
+    </where>
+    order by gmt_create desc
+    limit #{size} offset #{offset}
+  </select>
 </mapper>

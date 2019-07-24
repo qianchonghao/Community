@@ -133,7 +133,7 @@ body {
     text-decoration: none;
 }
 .img{
-    width: 50%;
+    width: 25%;
 }
 .publish-tab-tag{
     display: none;
@@ -141,4 +141,8 @@ body {
 }
 .profile-edit{
     margin-right: 510px;
+}
+.foot{
+    padding: 10px 25%;
+    color:#155faa ;
 }

@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -38,7 +37,7 @@ public class CommentService {
 commentService 对应commentDTO三个field进行检查，有问题则抛出异常
  */
 @Transactional//保持下方函数 原子性
-public void insert(Comment comment) {
+public void insert(Comment comment,User commentator) {
 
     if (comment.getParentId() == null || comment.getParentId() == 0) {
         throw new CustomizeException(CustomizeErrorCode.TARGET_PARAM_NOT_FOUND);
@@ -58,31 +57,44 @@ public void insert(Comment comment) {
         questionMapperExt.incComment(question1);
         //增加通知信息
 
-        createNotification(comment, question.getCreator(), NotificationTypeEnum.REPLY_QUESTION.getType());//ctrl+Alt+m 抽出方法
+        createNotification(comment, question.getCreator(), NotificationTypeEnum.REPLY_QUESTION.getType(), commentator.getName(),question.getTitle(), question.getId());//ctrl+Alt+m 抽出方法
     } else {
         //回复评论
         Comment dbComment = commentMapper.selectByPrimaryKey(comment.getParentId());
+        Long outId=getParentQuestionId(comment);
+        Question question = questionMapper.selectByPrimaryKey(dbComment.getParentId());
         if (dbComment == null) throw new CustomizeException(CustomizeErrorCode.COMMENT_NOT_FOUND);
         //增加一级评论的被评论数
         Comment temp = dbComment;
         temp.setCommentCount(1);
         commentMapperExt.incCommentCount(temp);
         //增加Notification
-        createNotification(comment, dbComment.getCommentator(), NotificationTypeEnum.REPLY_COMMENT.getType());
+        createNotification(comment, dbComment.getCommentator(), NotificationTypeEnum.REPLY_COMMENT.getType(), commentator.getName(),question.getTitle(), outId);
     }
     commentMapper.insert(comment);
 
 }
 
-    private void createNotification(Comment comment, Long receiver, int notificationType) {//对着方法Ctrl+F6直接编辑
+    private Long getParentQuestionId(Comment comment) {
+        Comment temp =comment;
+        while(temp.getType()!=1){
+            temp=commentMapper.selectByPrimaryKey(temp.getParentId());
+        }
+        return temp.getParentId();
+    }
+
+    private void createNotification(Comment comment, Long receiver, int notificationType, String notifierName, String outerTitle, Long questionId) {//对着方法Ctrl+F6直接编辑
+
         Notification notification = new Notification();
         notification.setGmtCreate(System.currentTimeMillis());
         notification.setStatus(NotificationStatusEnum.UNREAD.getStatus());//创建枚举类为了然阅读者理解 status.value对应的状态
-        notification.setOuterid(comment.getParentId());//被评论对象的id
+        notification.setOuterid(questionId);//被评论对象的id
         notification.setNotifier(comment.getCommentator());//评论对象的创建者id
         notification.setReceiver(receiver);//被评论对象的创建者
         //通过ctrl+alt+p 抽取成参数
         notification.setType(notificationType);
+        notification.setNotifierName(notifierName);
+        notification.setOuterTitle(outerTitle);
         notificationMapper.insert(notification);
     }
 
@@ -108,16 +120,17 @@ public void insert(Comment comment) {
         Set<Long> commentators =
                 comments.stream().map(comment -> comment.getCommentator()).collect(Collectors.toSet());
 
-        List<Long>userId = new ArrayList<Long>();
+        List<Long>userId = new ArrayList<Long>(commentators);
 
-        userId.addAll(commentators);
+
 
         //获取评论人 并转化为MAP
         UserExample example = new UserExample();
         example.createCriteria().andIdIn(userId);//根据容器内value来挑选数据库内数据
 
         List<User>users =userMapper.selectByExample(example);
-        Map<Long,User> userMap = users.stream().collect(Collectors.toMap(user->user.getId(),user -> user));
+//        Map<Long,User> temp = users.stream().collect(Collectors.toMap(u->u.getId(),u->u));
+
         /* list等集合类型 都可以使用 stream()功能
         stream()不会修改数据源，将操作后的数据存储到另一个对象中
          Stream<String> s1 = userList.stream().map(user->user.getId());//map返回一个数据类型为Long内容为ID的stream
@@ -125,22 +138,24 @@ public void insert(Comment comment) {
         末尾添加的collect 根据map返回的Stream<Long> 返回一个对应的Set
         Map<Long,User> userMap = userList.stream.collect(Collectors.toMap(user->userId,user->user))
         */
-   /*     List<CommentDTO>commentDTOS = new ArrayList<>();
+      List<CommentDTO>commentDTOS = new ArrayList<>();
         for( Comment comment:comments){
             CommentDTO commentDTO = new CommentDTO();
             BeanUtils.copyProperties(comment,commentDTO);
-            commentDTO.setUser(userMap.get(comment.getCommentator()));
+            User user = userMapper.selectByPrimaryKey(comment.getCommentator());
+            commentDTO.setUser(user);
             commentDTOS.add(commentDTO);
-        }*/
-    //lambda转换 注意转换式内部最后return
-        List<CommentDTO>commentDTOS = comments.stream().map(
-                comment -> {
-                    CommentDTO commentDTO = new CommentDTO();
-                    BeanUtils.copyProperties(comment,commentDTO);
-                    commentDTO.setUser(userMap.get(comment.getCommentator()));
-                    return commentDTO;
-                }
-        ).collect(Collectors.toList());
+        }
+//    lambda转换 注意转换式内部最后return
+
+//        List<CommentDTO>commentDTOS = comments.stream().map(
+//                comment -> {
+//                    CommentDTO commentDTO = new CommentDTO();
+//                    BeanUtils.copyProperties(comment,commentDTO);
+//                    commentDTO.setUser(temp.get(comment.getCommentator()));
+//                    return commentDTO;
+//                }
+//        ).collect(Collectors.toList());
         return commentDTOS;
     }
 }

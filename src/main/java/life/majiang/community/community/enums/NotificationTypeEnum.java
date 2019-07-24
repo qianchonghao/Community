@@ -3,23 +3,30 @@ package life.majiang.community.community.enums;
 
 public enum NotificationTypeEnum {
     REPLY_QUESTION(1,"回复了问题"),
-    REPLY_COMMENT(2,"回复了评论"),
-    LIKE_QUESTION(3,"点赞了问题")
+    REPLY_COMMENT(2,"回复了评论")
     ;
 
     private int type;
-    private String message;
+    private String name;
 
     NotificationTypeEnum(int type, String message) {
         this.type = type;
-        this.message = message;
+        this.name = message;
     }
 
     public int getType() {
         return type;
     }
 
-    public String getMessage() {
-        return message;
+    public String getName() {
+        return name;
+    }
+    public static String nameOfType(int type){
+        for(NotificationTypeEnum notificationTypeEnum:NotificationTypeEnum.values()){
+            if(notificationTypeEnum.getType()==type){
+                return notificationTypeEnum.getName();
+            }
+        }
+        return null;
     }
 }

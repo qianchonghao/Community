@@ -35,13 +35,17 @@ public class profileController {
             model.addAttribute("section", "question");
             model.addAttribute("sectionName", "我的提问");
             PageDTO pageDTO = questionService.getMyPageDTO(user.getId(), page, size);
+            Long questionCount = questionService.questionCount(user.getId());
+            model.addAttribute("questionCount",questionCount);
             model.addAttribute("pageDTO", pageDTO);
         }
         if ("replies".equals(action)) {//避免action为空
             model.addAttribute("section", "replies");
             model.addAttribute("sectionName", "最新回复");
+
             PageDTO pageDTO = notificationService.getNotificationPage(user.getId(), page, size);
             model.addAttribute("pageDTO", pageDTO);
+
 
         }
 

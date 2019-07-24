@@ -1,8 +1,10 @@
 package life.majiang.community.community.interceptor;
 
+import life.majiang.community.community.enums.NotificationStatusEnum;
 import life.majiang.community.community.mapper.UserMapper;
 import life.majiang.community.community.model.User;
 import life.majiang.community.community.model.UserExample;
+import life.majiang.community.community.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -18,11 +20,15 @@ import java.util.List;
 public class SessionInterceptor implements HandlerInterceptor {
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private NotificationService notificationService;
 
     //让srping接管，将其并入Spring上下文
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
        //interceptor 对所有的程序做拦截。然后检查Cookie是否匹配，如若匹配，则将user添加到session中
+
+
         Cookie[] cookies = request.getCookies();
         if(cookies!=null&&cookies.length>0){
             for(Cookie cookie:cookies){
@@ -34,12 +40,16 @@ public class SessionInterceptor implements HandlerInterceptor {
                     List<User> user =  userMapper.selectByExample(example);//依据example select
                     if(user != null&&user.size()!=0){
                         request.getSession().setAttribute("user",user.get(0));
+                        Long unreadCount = notificationService.unreadCount(user.get(0).getId());
+                        request.getSession().setAttribute("unreadCount",unreadCount);
                     }
 
                     break;
                 }
             }
         }
+
+
         return true;
     }
 

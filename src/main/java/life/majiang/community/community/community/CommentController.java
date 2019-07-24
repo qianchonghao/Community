@@ -59,7 +59,8 @@ public class CommentController {
         comment.setGmtCreate(System.currentTimeMillis());
         comment.setGmtModified(comment.getGmtCreate());
         comment.setLikeCount((long)0);
-        commentService.insert(comment);
+        comment.setCommentCount(0);
+        commentService.insert(comment,user);
 
         return ResultDTO.okOf();//@response 将一个bean————>jsonStr 传递给response，所以community.js里面的success输出response的东西
     }

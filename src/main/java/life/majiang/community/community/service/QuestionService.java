@@ -3,9 +3,11 @@ package life.majiang.community.community.service;
 import life.majiang.community.community.Exception.CustomizeErrorCode;
 import life.majiang.community.community.Exception.CustomizeException;
 import life.majiang.community.community.dto.QuestionDTO;
+import life.majiang.community.community.dto.QuestionQueryDTO;
 import life.majiang.community.community.mapper.QuestionMapper;
 import life.majiang.community.community.mapper.QuestionMapperExt;
 import life.majiang.community.community.mapper.UserMapper;
+import life.majiang.community.community.model.NotificationExample;
 import life.majiang.community.community.model.Question;
 import life.majiang.community.community.model.QuestionExample;
 import life.majiang.community.community.model.User;
@@ -31,16 +33,26 @@ public class QuestionService {
     @Autowired
     public QuestionMapperExt questionMapperExt;
 
-    public PageDTO getList(Integer page, Integer size) {
+    public PageDTO getList(String search,Integer page, Integer size) {
         //size 用來計算 totalPage
         // size*(page -1)
         //offset 和size作用：questionMapper内选取数据库question信息
         Integer totalPage;
-        Integer totalCount;
+
+        String regexSearch=null;
 
 
-        totalCount= (int)(questionMapper.countByExample(new QuestionExample()));
-     //   totalCount= questionMapper.count();
+
+        if(!StringUtils.isBlank(search)){
+            String[] searchs=StringUtils.split(search,' ');
+            regexSearch=Arrays.stream(searchs).collect(Collectors.joining("|"));
+        }
+
+        QuestionQueryDTO query = new QuestionQueryDTO();
+        //初始化query，统一处理search是否为空两种情况
+        query.setSearch(regexSearch);
+        Integer totalCount = questionMapperExt.countBySearch(query);
+        //   totalCount= (int)(questionMapper.countByExample(new QuestionExample()));原始count方法
 
         if(totalCount% size ==0){
             totalPage=totalCount/size;
@@ -54,16 +66,15 @@ public class QuestionService {
 
         Integer offset = size * (page - 1);
 
-        PageDTO pageDTO = new PageDTO();
+        query.setOffset(offset);
+        query.setSize(size);
 
+        PageDTO<QuestionDTO> pageDTO = new PageDTO<QuestionDTO>();
         List<QuestionDTO> list = new ArrayList<QuestionDTO>();
-        //两个问题 QuestionDTO 没有description
-        //question date html显示有问题
 
-        QuestionExample example = new QuestionExample();
-        example.setOrderByClause("gmt_create DESC");
-        List<Question> questions = questionMapper.selectByExampleWithRowbounds(example,new RowBounds(offset,size));
-        //getList(offset, size);
+
+        List<Question> questions = questionMapperExt.selectBySearchWithRowbounds(query);
+
 
         for (Question question : questions) {
             User user = userMapper.selectByPrimaryKey(question.getCreator());
@@ -73,7 +84,7 @@ public class QuestionService {
 
             list.add(questionDTO);
         }
-        pageDTO.setQuestionDTOList(list);
+        pageDTO.setDatas(list);
 
         pageDTO.setPageInfo(totalPage,page);
         return pageDTO;
@@ -103,7 +114,7 @@ public class QuestionService {
 
         Integer offset = size * (page - 1);
 
-        PageDTO pageDTO = new PageDTO();
+        PageDTO<QuestionDTO> pageDTO = new PageDTO<QuestionDTO>();
 
         List<QuestionDTO> list = new ArrayList<QuestionDTO>();
 
@@ -120,7 +131,7 @@ public class QuestionService {
 
             list.add(questionDTO);
         }
-        pageDTO.setQuestionDTOList(list);
+        pageDTO.setDatas(list);
 
         pageDTO.setPageInfo(totalPage,page);
         return pageDTO;
@@ -187,8 +198,11 @@ public class QuestionService {
         }else{
 
 
+//            String[] tags=StringUtils.split(questionDTO.getTag(),',');
+//            String regexTag=Arrays.stream(tags).collect(Collectors.joining("|"));
             String[] tags=StringUtils.split(questionDTO.getTag(),',');
-            String regexTag=Arrays.stream(tags).collect(Collectors.joining("|"));
+            List<String>list = Arrays.asList(tags);
+            String regexTag=list.stream().collect(Collectors.joining("|"));
             //delimeter 分隔符
             Question question = new Question();
             question.setId(questionDTO.getId());
@@ -206,5 +220,13 @@ public class QuestionService {
 
         }
 
+    }
+
+
+    public Long questionCount(Long userId) {
+
+        QuestionExample example = new QuestionExample();
+        example.createCriteria().andCreatorEqualTo(userId);
+        return questionMapper.countByExample(example);
     }
 }

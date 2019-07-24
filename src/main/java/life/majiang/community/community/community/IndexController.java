@@ -22,7 +22,8 @@ public class IndexController {//templates中HTML文件名要和control相对应
     public String Index(HttpServletRequest request,
                         Model model,
                         @RequestParam(value="page",defaultValue = "1")Integer page,
-                        @RequestParam(value="size",defaultValue = "5")Integer size) {
+                        @RequestParam(value="size",defaultValue = "5")Integer size,
+                        @RequestParam(value="search",required = false)String search) {
 
 
             /*cookies都是存储在前端的数据 当第二次访问时候，第一次已经通过UUID.randomUUID()在前端存储{name=“token”}的cookie。
@@ -33,10 +34,10 @@ public class IndexController {//templates中HTML文件名要和control相对应
 
 
 
-       PageDTO pageDTO = questionService.getList(page,size);
+         PageDTO pageDTO = questionService.getList(search,page,size);
 
         model.addAttribute("pageDTO",pageDTO);
-
+        model.addAttribute("search",search);
         return "index";
     }
 

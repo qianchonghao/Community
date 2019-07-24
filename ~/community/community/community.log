@@ -1,0 +1,23 @@
+2019-07-24 15:08:19.438  INFO 17120 --- [restartedMain] l.m.c.community.CommunityApplication     : Starting CommunityApplication on DESKTOP-7DIEUL3 with PID 17120 (C:\Users\57446\IdeaProjects\community\target\classes started by 57446 in C:\Users\57446\IdeaProjects\community)
+2019-07-24 15:08:19.438  INFO 17120 --- [restartedMain] l.m.c.community.CommunityApplication     : No active profile set, falling back to default profiles: default
+2019-07-24 15:08:19.798  INFO 17120 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8090 (http)
+2019-07-24 15:08:19.799  INFO 17120 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-07-24 15:08:19.800  INFO 17120 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.21]
+2019-07-24 15:08:19.872  INFO 17120 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-07-24 15:08:19.873  INFO 17120 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 433 ms
+2019-07-24 15:08:20.283  INFO 17120 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2019-07-24 15:08:20.308  INFO 17120 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8090 (http) with context path ''
+2019-07-24 15:08:20.309  INFO 17120 --- [restartedMain] l.m.c.community.CommunityApplication     : Started CommunityApplication in 0.927 seconds (JVM running for 845.612)
+2019-07-24 15:08:20.313  INFO 17120 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2019-07-24 15:08:23.002  INFO 3312 --- [restartedMain] l.m.c.community.CommunityApplication     : Starting CommunityApplication on DESKTOP-7DIEUL3 with PID 3312 (C:\Users\57446\IdeaProjects\community\target\classes started by 57446 in C:\Users\57446\IdeaProjects\community)
+2019-07-24 15:08:23.006  INFO 3312 --- [restartedMain] l.m.c.community.CommunityApplication     : No active profile set, falling back to default profiles: default
+2019-07-24 15:08:23.089  INFO 3312 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-07-24 15:08:23.089  INFO 3312 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-07-24 15:08:24.348  INFO 3312 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8090 (http)
+2019-07-24 15:08:24.378  INFO 3312 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-07-24 15:08:24.379  INFO 3312 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.21]
+2019-07-24 15:08:24.498  INFO 3312 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-07-24 15:08:24.499  INFO 3312 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1410 ms
+2019-07-24 15:08:25.944  INFO 3312 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2019-07-24 15:08:26.011  INFO 3312 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8090 (http) with context path ''
+2019-07-24 15:08:26.014  INFO 3312 --- [restartedMain] l.m.c.community.CommunityApplication     : Started CommunityApplication in 3.34 seconds (JVM running for 4.441)
