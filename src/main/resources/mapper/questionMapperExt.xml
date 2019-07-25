@@ -1,65 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="life.majiang.community.community.mapper.QuestionMapperExt">
-  <!--此处是实现将sql语句映射到mapper -->
-  <!--本意是修改Mapper.xml，实现直接对数据库操作，规避高并发引起的问题 -->
-  <!--引入MapperExt.xml是为了预防Mybaits Generator 覆盖原有的Mapper.xml，从而覆盖了我们自己定义的sql -->
+    <!--此处是实现将sql语句映射到mapper -->
+    <!--本意是修改Mapper.xml，实现直接对数据库操作，规避高并发引起的问题 -->
+    <!--引入MapperExt.xml是为了预防Mybaits Generator 覆盖原有的Mapper.xml，从而覆盖了我们自己定义的sql -->
 
-  <resultMap id="BaseResultMap" type="life.majiang.community.community.model.Question">
+    <resultMap id="BaseResultMap" type="life.majiang.community.community.model.Question">
 
-    <id column="ID" jdbcType="INTEGER" property="id" />
-    <result column="TITLE" jdbcType="VARCHAR" property="title" />
-    <result column="GMT_CREATE" jdbcType="BIGINT" property="gmtCreate" />
-    <result column="GMT_MODIFIED" jdbcType="BIGINT" property="gmtModified" />
-    <result column="CREATOR" jdbcType="INTEGER" property="creator" />
-    <result column="COMMENT_COUNT" jdbcType="INTEGER" property="commentCount" />
-    <result column="VIEW_COUNT" jdbcType="INTEGER" property="viewCount" />
-    <result column="LIKE_COUNT" jdbcType="INTEGER" property="likeCount" />
-    <result column="TAG" jdbcType="VARCHAR" property="tag" />
-  </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="life.majiang.community.community.model.Question">
+        <id column="ID" jdbcType="INTEGER" property="id"/>
+        <result column="TITLE" jdbcType="VARCHAR" property="title"/>
+        <result column="GMT_CREATE" jdbcType="BIGINT" property="gmtCreate"/>
+        <result column="GMT_MODIFIED" jdbcType="BIGINT" property="gmtModified"/>
+        <result column="CREATOR" jdbcType="INTEGER" property="creator"/>
+        <result column="COMMENT_COUNT" jdbcType="INTEGER" property="commentCount"/>
+        <result column="VIEW_COUNT" jdbcType="INTEGER" property="viewCount"/>
+        <result column="LIKE_COUNT" jdbcType="INTEGER" property="likeCount"/>
+        <result column="TAG" jdbcType="VARCHAR" property="tag"/>
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="life.majiang.community.community.model.Question">
 
-    <result column="DESCRIPTION" jdbcType="CLOB" property="description" />
-  </resultMap>
-  <update id="incView" parameterType="map">
-    <!--parameterType，是指引入变量的类型 -->
-    <!--在MapperExt.java中参数的传递使用了@Param("record") 因此此处paraMeterType = map -->
-    update QUESTION
-    set
-    VIEW_COUNT = #{record.viewCount,jdbcType=INTEGER}+VIEW_COUNT
-    where id = #{record.id}
-  </update>
-  <update id="incComment" parameterType="map">
-    <!--parameterType，是指引入变量的类型 -->
-    <!--在MapperExt.java中参数的传递使用了@Param("record") 因此此处paraMeterType = map -->
-    update QUESTION
-    set
-    COMMENT_COUNT = #{record.commentCount,jdbcType=INTEGER}+COMMENT_COUNT
-    where id = #{record.id}
-  </update>
+        <result column="DESCRIPTION" jdbcType="CLOB" property="description"/>
+    </resultMap>
+    <update id="incView" parameterType="map">
+        <!--parameterType，是指引入变量的类型 -->
+        <!--在MapperExt.java中参数的传递使用了@Param("record") 因此此处paraMeterType = map -->
+        update QUESTION
+        set
+        VIEW_COUNT = #{record.viewCount,jdbcType=INTEGER}+VIEW_COUNT
+        where id = #{record.id}
+    </update>
+    <update id="incComment" parameterType="map">
+        <!--parameterType，是指引入变量的类型 -->
+        <!--在MapperExt.java中参数的传递使用了@Param("record") 因此此处paraMeterType = map -->
+        update QUESTION
+        set
+        COMMENT_COUNT = #{record.commentCount,jdbcType=INTEGER}+COMMENT_COUNT
+        where id = #{record.id}
+    </update>
 
-  <select id="selectRelated" parameterType="map" resultMap="BaseResultMap">
-    select * from QUESTION where id!=#{record.id} and tag regexp #{record.tag}
-  </select>
+    <select id="selectRelated" parameterType="map" resultMap="BaseResultMap">
+        select * from QUESTION where id!=#{record.id} and tag regexp #{record.tag}
+    </select>
 
-  <select id="countBySearch" parameterType="map" resultType="java.lang.Integer">
-    select count(*) from QUESTION
-    <where>
-    <if test = "query.search!=null">
-      and title regexp #{query.search}
-    </if>
-    </where>
+    <select id="countBySearch" parameterType="map" resultType="java.lang.Integer">
+        select count(*) from QUESTION
+        <where>
+            <if test="query.search!=null">
+                and title regexp #{query.search}
+            </if>
+        </where>
 
-  </select>
+    </select>
 
-  <select id="selectBySearchWithRowbounds" parameterType="life.majiang.community.community.dto.QuestionQueryDTO" resultMap="BaseResultMap">
-    select * from QUESTION
-    <where>
-      <if test = "search!=null">
-        and title regexp #{search}
-      </if>
-    </where>
-    order by gmt_create desc
-    limit #{size} offset #{offset}
-  </select>
+    <select id="selectBySearchWithRowbounds" parameterType="life.majiang.community.community.dto.QuestionQueryDTO"
+            resultMap="BaseResultMap">
+        select * from QUESTION
+        <where>
+            <if test="search!=null">
+                and title regexp #{search}
+            </if>
+        </where>
+        order by gmt_create desc
+        limit #{size} offset #{offset}
+    </select>
 </mapper>

@@ -8,7 +8,7 @@ import java.util.List;
 @Data
 public class PageDTO<T> {
     private List<T> datas;
- //   private List<Object> showDTOList;
+    //   private List<Object> showDTOList;
     private Boolean showFirstPage;
     private Boolean showEndPage;
     private Boolean showPrevious;
@@ -20,15 +20,15 @@ public class PageDTO<T> {
 
     public void setPageInfo(Integer totalPage, Integer page) {
 
-        this.totalPage=totalPage;
+        this.totalPage = totalPage;
         this.page = page;
 
-        if(totalPage==0){
+        if (totalPage == 0) {
             showPrevious = false;
             showNext = false;
             showFirstPage = false;
             showEndPage = false;
-        }else{
+        } else {
             //當前頁面左右各取3頁 加入pages
             for (int i = 3; i >= 0; i--) {
                 if (page - i > 0) {

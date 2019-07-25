@@ -9,8 +9,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @MapperScan(basePackages = "life.majiang.community.community.mapper")//促使mapper 介入spring上下文
 public class CommunityApplication {
 
-    public static void main(String[] args){
-        SpringApplication.run(CommunityApplication.class,args);
+    public static void main(String[] args) {
+        SpringApplication.run(CommunityApplication.class, args);
     }
 }
 

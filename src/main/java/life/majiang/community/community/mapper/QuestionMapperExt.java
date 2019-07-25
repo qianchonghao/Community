@@ -10,11 +10,12 @@ import java.util.List;
 
 public interface QuestionMapperExt {
     int incView(@Param("record") Question record);
+
     int incComment(@Param("record") Question record);
 
-    List<Question> selectRelated(@Param("record")Question question);
+    List<Question> selectRelated(@Param("record") Question question);
 
     Integer countBySearch(@Param("query") QuestionQueryDTO questionQueryDTO);
 
-    List<Question> selectBySearchWithRowbounds( QuestionQueryDTO query);
+    List<Question> selectBySearchWithRowbounds(QuestionQueryDTO query);
 }

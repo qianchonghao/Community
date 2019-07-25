@@ -31,12 +31,13 @@
                 </form>
                 <ul class="nav navbar-nav navbar-right">
                     <li th:if="${session.user}"><a href="/publish">发布</a></li>
-                    <li><a href="/profile/replies">通知<span class="badge"  th:text="${session.unreadCount}"></span></a></li>
+                    <li><a href="/profile/replies">通知<span class="badge" th:text="${session.unreadCount}"></span></a>
+                    </li>
                     <li class="dropdown" th:if="${session.user}">
 
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                           aria-expanded="false" >
-                            <span  th:text="${session.user.getName()}"></span>
+                           aria-expanded="false">
+                            <span th:text="${session.user.getName()}"></span>
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">

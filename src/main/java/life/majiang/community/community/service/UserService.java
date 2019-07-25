@@ -22,8 +22,8 @@ public class UserService {
         example.createCriteria().andAccountIdEqualTo(user.getAccountId());
         List<User> userList = userMapper.selectByExample(example);
         User temp = userList.get(0);
-       // User temp = userMapper.getUserByAccountId(user.getAccountId());
-        if(temp!=null) {
+        // User temp = userMapper.getUserByAccountId(user.getAccountId());
+        if (temp != null) {
 
 
             //如果user存在，那么gmtCreate()是不会变化的，仅setModified
@@ -31,10 +31,9 @@ public class UserService {
 
             UserExample example1 = new UserExample();
             example1.createCriteria().andAccountIdEqualTo(user.getAccountId());
-            userMapper.updateByExampleSelective(user,example1);
+            userMapper.updateByExampleSelective(user, example1);
 
-        }
-        else{
+        } else {
             //如果gitUser之前不存在，那么上传
             user.setGmtCreate(System.currentTimeMillis());
 

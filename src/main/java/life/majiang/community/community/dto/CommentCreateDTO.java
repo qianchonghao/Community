@@ -10,5 +10,4 @@ public class CommentCreateDTO {
     //该DTO是在client页面端传输数据到db时，使用的。
 
 
-
 }

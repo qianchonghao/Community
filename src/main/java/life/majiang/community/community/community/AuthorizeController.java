@@ -35,10 +35,10 @@ public class AuthorizeController {
 
     @GetMapping("/callback")
     //callback 是Github Application中 预存的redirect_uri的请求参数
-    public String Callback(@RequestParam(name="code")String code,
-                           @RequestParam(name="state")String state,
-                            HttpServletRequest request,
-                            HttpServletResponse response){
+    public String Callback(@RequestParam(name = "code") String code,
+                           @RequestParam(name = "state") String state,
+                           HttpServletRequest request,
+                           HttpServletResponse response) {
         //Sping 自动把上下文中HttpServletRequest  传入参数request 供我们使用
         AccessToeknDTO accessTokenDTO = new AccessToeknDTO();
         accessTokenDTO.setCode(code);
@@ -51,7 +51,7 @@ public class AuthorizeController {
         String token = githubProvider.getAccessToken(accessTokenDTO);
         GithubUser githubUser = githubProvider.getUser(token);
 
-        if(githubUser!=null){
+        if (githubUser != null) {
             //登录成功 写cookie和session
             User user = new User();
             user.setAccountId(String.valueOf(githubUser.getId()));//String.valueOf(String data)将int转化为 String
@@ -66,12 +66,12 @@ public class AuthorizeController {
 
 
             userService.createOrUpdate(user);
-            request.getSession().setAttribute("user",githubUser);
+            request.getSession().setAttribute("user", githubUser);
             //设置cookie和session 同时要思考怎么在HTML文件中传递Session
-            response.addCookie(new Cookie("token",newToken));
+            response.addCookie(new Cookie("token", newToken));
             return "redirect:/";
             //return redirect 会重新跳转index 不包含请求参数
-        }else{
+        } else {
             //登录失败 重新登录
             return "redirect:/";
         }
@@ -81,9 +81,9 @@ public class AuthorizeController {
 
     @GetMapping("/logout")
     public String logout(HttpServletRequest request,
-                         HttpServletResponse response){
+                         HttpServletResponse response) {
         request.getSession().removeAttribute("user");
-        Cookie cookie=new Cookie("token",null);
+        Cookie cookie = new Cookie("token", null);
         cookie.setMaxAge(0);
         response.addCookie(cookie);//注意addCookie( Cookie) 参数为cookie形
 

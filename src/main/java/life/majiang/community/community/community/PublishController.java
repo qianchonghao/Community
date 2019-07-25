@@ -19,9 +19,9 @@ import javax.servlet.http.HttpServletRequest;
 
 public class PublishController {
     /*
-    * 如果是GET访问 则渲染页面
-    * 如果是Post访问 则执行请求
-    * */
+     * 如果是GET访问 则渲染页面
+     * 如果是Post访问 则执行请求
+     * */
     @Autowired
     private QuestionMapper questionMapper;
 
@@ -30,59 +30,59 @@ public class PublishController {
     private QuestionService questionService;
 
     @GetMapping("/publish")
-    public String publish(Model model){
+    public String publish(Model model) {
         model.addAttribute("tagDTOS", TagCache.get());
         return "publish";
     }
+
     @PostMapping("/publish")
-    public  String doPublish(@RequestParam(value = "title",required = false) String title,
-                             @RequestParam(value ="description",required = false) String description,
-                             @RequestParam(value ="tag",required = false) String tag,
-                             @RequestParam(value ="questionId",required = false,defaultValue = "0") String questionIdStr,
-                             HttpServletRequest request,
-                             Model model)
-    {
+    public String doPublish(@RequestParam(value = "title", required = false) String title,
+                            @RequestParam(value = "description", required = false) String description,
+                            @RequestParam(value = "tag", required = false) String tag,
+                            @RequestParam(value = "questionId", required = false, defaultValue = "0") String questionIdStr,
+                            HttpServletRequest request,
+                            Model model) {
 
         Question question = new Question();
-        long questionId=Integer.valueOf(questionIdStr);
+        long questionId = Integer.valueOf(questionIdStr);
 
-        model.addAttribute("title",title);
-        model.addAttribute("description",description);
-        model.addAttribute("tag",tag);
+        model.addAttribute("title", title);
+        model.addAttribute("description", description);
+        model.addAttribute("tag", tag);
         model.addAttribute("tagDTOS", TagCache.get());
         //以上model操作是为了回显到页面
-        if(title==null|| title==""){
-            model.addAttribute("error","标题不能为空");
+        if (title == null || title == "") {
+            model.addAttribute("error", "标题不能为空");
             return "publish";
         }
-        if(description==null|| description==""){
-            model.addAttribute("error","内容不能为空");
+        if (description == null || description == "") {
+            model.addAttribute("error", "内容不能为空");
             return "publish";
         }
-        if(tag==null|| tag==""){
-            model.addAttribute("error","标签不能为空");
+        if (tag == null || tag == "") {
+            model.addAttribute("error", "标签不能为空");
             return "publish";
         }
         //提示是否内容填充完整
 
-       if(!TagCache.isValid(tag)) {
-           model.addAttribute("error","輸入非法标签");
-           return "publish";
-       }
+        if (!TagCache.isValid(tag)) {
+            model.addAttribute("error", "輸入非法标签");
+            return "publish";
+        }
 
-        User user= (User) request.getSession().getAttribute("user");
+        User user = (User) request.getSession().getAttribute("user");
 
-        if(user==null){
-            model.addAttribute("error","用户未登录");
+        if (user == null) {
+            model.addAttribute("error", "用户未登录");
             //model 内的attribute会和html交互
             return "publish";
-        }else {
+        } else {
 
             question.setTitle(title);
             question.setDescription(description);
             question.setTag(tag);
             question.setCreator(user.getId());
-            questionService.updateOrCreate(question,questionId);
+            questionService.updateOrCreate(question, questionId);
 
             return "redirect:/";
         }
@@ -92,14 +92,14 @@ public class PublishController {
 
     @GetMapping("/publish/{id}")//编辑按钮link至此
     public String edit(@PathVariable("id") long questionId,
-                        Model model){
+                       Model model) {
         model.addAttribute("tagDTOS", TagCache.get());
-        model.addAttribute("questionId",questionId);
+        model.addAttribute("questionId", questionId);
         Question question = questionMapper.selectByPrimaryKey(questionId);
-        model.addAttribute("title",question.getTitle());
-        model.addAttribute("description",question.getDescription());
+        model.addAttribute("title", question.getTitle());
+        model.addAttribute("description", question.getDescription());
         //此处三个model.addAttribute()是为了实现编辑页面的回显
-        model.addAttribute("tag",question.getTag());
+        model.addAttribute("tag", question.getTag());
         return "publish";//跳转回发布页面？
     }
 

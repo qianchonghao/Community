@@ -33,52 +33,52 @@ public class CommentService {
     @Autowired
     private NotificationMapper notificationMapper;
 
-/*
-commentService 对应commentDTO三个field进行检查，有问题则抛出异常
- */
-@Transactional//保持下方函数 原子性
-public void insert(Comment comment,User commentator) {
+    /*
+    commentService 对应commentDTO三个field进行检查，有问题则抛出异常
+     */
+    @Transactional//保持下方函数 原子性
+    public void insert(Comment comment, User commentator) {
 
-    if (comment.getParentId() == null || comment.getParentId() == 0) {
-        throw new CustomizeException(CustomizeErrorCode.TARGET_PARAM_NOT_FOUND);
+        if (comment.getParentId() == null || comment.getParentId() == 0) {
+            throw new CustomizeException(CustomizeErrorCode.TARGET_PARAM_NOT_FOUND);
+        }
+        if (comment.getType() == null || !CommentTypeEnum.isExist(comment.getType())) {
+            throw new CustomizeException(CustomizeErrorCode.TYPE_PARAM_WRONG);
+        }
+
+        if (comment.getType() == CommentTypeEnum.QUESTION.getType()) {
+            //回复问题
+            Question question = questionMapper.selectByPrimaryKey(comment.getParentId());
+            if (question == null) throw new CustomizeException(CustomizeErrorCode.TARGET_PARAM_NOT_FOUND);
+            //增加评论数
+            Question question1 = new Question();
+            question1.setId(comment.getParentId());
+            question1.setCommentCount(1);
+            questionMapperExt.incComment(question1);
+            //增加通知信息
+
+            createNotification(comment, question.getCreator(), NotificationTypeEnum.REPLY_QUESTION.getType(), commentator.getName(), question.getTitle(), question.getId());//ctrl+Alt+m 抽出方法
+        } else {
+            //回复评论
+            Comment dbComment = commentMapper.selectByPrimaryKey(comment.getParentId());
+            Long outId = getParentQuestionId(comment);
+            Question question = questionMapper.selectByPrimaryKey(dbComment.getParentId());
+            if (dbComment == null) throw new CustomizeException(CustomizeErrorCode.COMMENT_NOT_FOUND);
+            //增加一级评论的被评论数
+            Comment temp = dbComment;
+            temp.setCommentCount(1);
+            commentMapperExt.incCommentCount(temp);
+            //增加Notification
+            createNotification(comment, dbComment.getCommentator(), NotificationTypeEnum.REPLY_COMMENT.getType(), commentator.getName(), question.getTitle(), outId);
+        }
+        commentMapper.insert(comment);
+
     }
-    if (comment.getType() == null || !CommentTypeEnum.isExist(comment.getType())) {
-        throw new CustomizeException(CustomizeErrorCode.TYPE_PARAM_WRONG);
-    }
-
-    if (comment.getType() == CommentTypeEnum.QUESTION.getType()) {
-        //回复问题
-        Question question = questionMapper.selectByPrimaryKey(comment.getParentId());
-        if (question == null) throw new CustomizeException(CustomizeErrorCode.TARGET_PARAM_NOT_FOUND);
-       //增加评论数
-        Question question1 = new Question();
-        question1.setId(comment.getParentId());
-        question1.setCommentCount(1);
-        questionMapperExt.incComment(question1);
-        //增加通知信息
-
-        createNotification(comment, question.getCreator(), NotificationTypeEnum.REPLY_QUESTION.getType(), commentator.getName(),question.getTitle(), question.getId());//ctrl+Alt+m 抽出方法
-    } else {
-        //回复评论
-        Comment dbComment = commentMapper.selectByPrimaryKey(comment.getParentId());
-        Long outId=getParentQuestionId(comment);
-        Question question = questionMapper.selectByPrimaryKey(dbComment.getParentId());
-        if (dbComment == null) throw new CustomizeException(CustomizeErrorCode.COMMENT_NOT_FOUND);
-        //增加一级评论的被评论数
-        Comment temp = dbComment;
-        temp.setCommentCount(1);
-        commentMapperExt.incCommentCount(temp);
-        //增加Notification
-        createNotification(comment, dbComment.getCommentator(), NotificationTypeEnum.REPLY_COMMENT.getType(), commentator.getName(),question.getTitle(), outId);
-    }
-    commentMapper.insert(comment);
-
-}
 
     private Long getParentQuestionId(Comment comment) {
-        Comment temp =comment;
-        while(temp.getType()!=1){
-            temp=commentMapper.selectByPrimaryKey(temp.getParentId());
+        Comment temp = comment;
+        while (temp.getType() != 1) {
+            temp = commentMapper.selectByPrimaryKey(temp.getParentId());
         }
         return temp.getParentId();
     }
@@ -97,7 +97,6 @@ public void insert(Comment comment,User commentator) {
         notification.setOuterTitle(outerTitle);
         notificationMapper.insert(notification);
     }
-
 
 
     public List<CommentDTO> getCommentListById(Long targetId, Integer type) {
@@ -120,15 +119,14 @@ public void insert(Comment comment,User commentator) {
         Set<Long> commentators =
                 comments.stream().map(comment -> comment.getCommentator()).collect(Collectors.toSet());
 
-        List<Long>userId = new ArrayList<Long>(commentators);
-
+        List<Long> userId = new ArrayList<Long>(commentators);
 
 
         //获取评论人 并转化为MAP
         UserExample example = new UserExample();
         example.createCriteria().andIdIn(userId);//根据容器内value来挑选数据库内数据
 
-        List<User>users =userMapper.selectByExample(example);
+        List<User> users = userMapper.selectByExample(example);
 //        Map<Long,User> temp = users.stream().collect(Collectors.toMap(u->u.getId(),u->u));
 
         /* list等集合类型 都可以使用 stream()功能
@@ -138,10 +136,10 @@ public void insert(Comment comment,User commentator) {
         末尾添加的collect 根据map返回的Stream<Long> 返回一个对应的Set
         Map<Long,User> userMap = userList.stream.collect(Collectors.toMap(user->userId,user->user))
         */
-      List<CommentDTO>commentDTOS = new ArrayList<>();
-        for( Comment comment:comments){
+        List<CommentDTO> commentDTOS = new ArrayList<>();
+        for (Comment comment : comments) {
             CommentDTO commentDTO = new CommentDTO();
-            BeanUtils.copyProperties(comment,commentDTO);
+            BeanUtils.copyProperties(comment, commentDTO);
             User user = userMapper.selectByPrimaryKey(comment.getCommentator());
             commentDTO.setUser(user);
             commentDTOS.add(commentDTO);

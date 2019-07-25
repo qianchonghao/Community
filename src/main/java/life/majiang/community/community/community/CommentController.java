@@ -21,15 +21,15 @@ import java.util.List;
 public class CommentController {
     @Autowired
     private CommentService commentService;
+
     @ResponseBody//返回值是application/json形式
     //@ResponseBody作用：将函数返回的Object--->序列化成JSON格式String
-    @PostMapping (value = "/comment")//post是如何输入的？
-
+    @PostMapping(value = "/comment")//post是如何输入的？
 
 
     //需要client端口传输时候带有 @RequestBody标识
     public Object post(@RequestBody CommentCreateDTO commentCreateDTO,
-                       HttpServletRequest request){
+                       HttpServletRequest request) {
         // @RequestBody作用：将commentDTO由JSON格式的string --->反序列化生成的bean
 
         /*注意传递@RequestBody时候，reset插件中必须设置head 的ContentType = application/JSON
@@ -41,12 +41,12 @@ public class CommentController {
             "type":1
             }
          */
-        User user= (User) request.getSession().getAttribute("user");
-        if(user==null){
+        User user = (User) request.getSession().getAttribute("user");
+        if (user == null) {
             return ResultDTO.errorOf(CustomizeErrorCode.NO_LOGIN);
         }
 
-        if(commentCreateDTO==null|| StringUtils.isBlank(commentCreateDTO.getContent())){
+        if (commentCreateDTO == null || StringUtils.isBlank(commentCreateDTO.getContent())) {
             //commons.lang 提供的StringUtils 可以简化代码
             throw new CustomizeException(CustomizeErrorCode.CONTENT_IS_EMPTY);
         }
@@ -58,16 +58,17 @@ public class CommentController {
         comment.setCommentator(user.getId());
         comment.setGmtCreate(System.currentTimeMillis());
         comment.setGmtModified(comment.getGmtCreate());
-        comment.setLikeCount((long)0);
+        comment.setLikeCount((long) 0);
         comment.setCommentCount(0);
-        commentService.insert(comment,user);
+        commentService.insert(comment, user);
 
         return ResultDTO.okOf();//@response 将一个bean————>jsonStr 传递给response，所以community.js里面的success输出response的东西
     }
-//comments目的：被访问时，request传入parentId返回包含相应commentsList的resultDTO
+
+    //comments目的：被访问时，request传入parentId返回包含相应commentsList的resultDTO
     @ResponseBody
     @GetMapping("/comment/{parentId}")
-    public ResultDTO<List<CommentDTO>> comments(@PathVariable("parentId") long parentId){
+    public ResultDTO<List<CommentDTO>> comments(@PathVariable("parentId") long parentId) {
         List<CommentDTO> commentDTOS = commentService.getCommentListById(parentId, CommentTypeEnum.COMMMENT.getType());
         return ResultDTO.okOf(commentDTOS);
         //comments 这个函数 是要根据Comment.parentID 返回List<CommentDTO> 同时又要返回获取成功的信息。所以在resultDTO中添加泛型

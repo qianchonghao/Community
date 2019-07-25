@@ -26,30 +26,31 @@ public class UCloudProvider {
     private String privateKey;//spring实例化时，才会赋值 @Value key
 
     @Value("${ucloud.ufile.bucket-name}")
-   private String bucketName ;
+    private String bucketName;
 
     @Value("${ucloud.ufile.region}")
-    private String region ;
+    private String region;
 
     @Value("${ucloud.ufile.suffix}")
-    private String suffix ;
+    private String suffix;
 
     @Value("${ucloud.ufile.expiresDuration}")
     private Integer expiresDuration;
-   public  String upLoad(InputStream fileInputStream,String mimeType,String fileName){
-       //三个参数分别为 文件输入流，文件contentType，文件名
 
-       ObjectAuthorization objectAuthorization = new UfileObjectLocalAuthorization(
-               publicKey, privateKey);
+    public String upLoad(InputStream fileInputStream, String mimeType, String fileName) {
+        //三个参数分别为 文件输入流，文件contentType，文件名
 
-       ObjectConfig config = new ObjectConfig(region, suffix);
-       //config需要 地域和域名作为参数
+        ObjectAuthorization objectAuthorization = new UfileObjectLocalAuthorization(
+                publicKey, privateKey);
 
-        String   generatorFileName;
-        String[] filePaths =fileName.split("\\.");//split需要转义字符
-        if(filePaths.length>1){
-            generatorFileName = UUID.randomUUID().toString()+"."+filePaths[filePaths.length-1];
-        }else{
+        ObjectConfig config = new ObjectConfig(region, suffix);
+        //config需要 地域和域名作为参数
+
+        String generatorFileName;
+        String[] filePaths = fileName.split("\\.");//split需要转义字符
+        if (filePaths.length > 1) {
+            generatorFileName = UUID.randomUUID().toString() + "." + filePaths[filePaths.length - 1];
+        } else {
             throw new CustomizeException(CustomizeErrorCode.File_UPLOAD_FAILED);
         }
 
@@ -66,12 +67,12 @@ public class UCloudProvider {
                     .execute();//上传文件
 
 
-            if(response!=null&&response.getRetCode()==0){//为了上传文件之后
+            if (response != null && response.getRetCode() == 0) {//为了上传文件之后
                 String url = UfileClient.object(objectAuthorization, config)
-                        .getDownloadUrlFromPrivateBucket(generatorFileName, bucketName,expiresDuration)
+                        .getDownloadUrlFromPrivateBucket(generatorFileName, bucketName, expiresDuration)
                         .createUrl();//getDownLoadFromBucket 是利用
                 return url;
-            }else{
+            } else {
                 throw new CustomizeException(CustomizeErrorCode.File_UPLOAD_FAILED);
             }
         } catch (UfileClientException e) {

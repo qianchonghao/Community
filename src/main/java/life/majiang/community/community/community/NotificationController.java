@@ -19,21 +19,22 @@ public class NotificationController {
     private QuestionService questionService;
     @Autowired
     private NotificationService notificationService;
+
     @GetMapping("/notification/{id}")//一个反斜杠 代表根目录
     public String Index(HttpServletRequest request,
                         Model model,
                         @PathVariable("id") Long notificationId) {
 
 
-        User user = (User)request.getSession().getAttribute("user");
-        if(user==null) return "redirect:/";
+        User user = (User) request.getSession().getAttribute("user");
+        if (user == null) return "redirect:/";
 
-       NotificationDTO notificationDTO= notificationService.read(notificationId,user);
+        NotificationDTO notificationDTO = notificationService.read(notificationId, user);
 
 
-        if(NotificationTypeEnum.REPLY_COMMENT.getType()==notificationDTO.getType()
-        || NotificationTypeEnum.REPLY_QUESTION.getType()==notificationDTO.getType()){
-            return "redirect:/question/"+notificationDTO.getOuterid();
+        if (NotificationTypeEnum.REPLY_COMMENT.getType() == notificationDTO.getType()
+                || NotificationTypeEnum.REPLY_QUESTION.getType() == notificationDTO.getType()) {
+            return "redirect:/question/" + notificationDTO.getOuterid();
         }
         return "redirect:/";
     }

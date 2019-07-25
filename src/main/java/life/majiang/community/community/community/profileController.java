@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+
 //questionDTO 比question 多存储一个User信息
 @Controller
 public class profileController {
@@ -21,6 +22,7 @@ public class profileController {
     QuestionService questionService;
     @Autowired
     private NotificationService notificationService;
+
     @GetMapping("/profile/{action}")
     public String profile(@PathVariable(name = "action") String action,
                           Model model,
@@ -36,7 +38,7 @@ public class profileController {
             model.addAttribute("sectionName", "我的提问");
             PageDTO pageDTO = questionService.getMyPageDTO(user.getId(), page, size);
             Long questionCount = questionService.questionCount(user.getId());
-            model.addAttribute("questionCount",questionCount);
+            model.addAttribute("questionCount", questionCount);
             model.addAttribute("pageDTO", pageDTO);
         }
         if ("replies".equals(action)) {//避免action为空
@@ -48,7 +50,6 @@ public class profileController {
 
 
         }
-
 
 
         return "profile";

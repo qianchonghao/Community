@@ -32,21 +32,22 @@
                     <span th:text="${questionDTO.viewCount}+'次浏览'"></span>
                 </div>
                 <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-<!--                内容-->
+                <!--                内容-->
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="question-view">
-                    <textarea th:text="${questionDTO.description}" style="display: none" >
+                    <textarea th:text="${questionDTO.description}" style="display: none">
                     </textarea>
                 </div>
                 <script type="text/javascript">
                     $(function () {
-                        editormd.markdownToHTML("question-view",{});
+                        editormd.markdownToHTML("question-view", {});
                     });
                 </script>
                 <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-<!--                标签-->
-<!--                th:each="commentDTO:${commentDTOS}"-->
+                <!--                标签-->
+                <!--                th:each="commentDTO:${commentDTOS}"-->
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <span class="label label-info question-tag" th:each="tagPiece:${#strings.listSplit(questionDTO.tag,',')}">
+                <span class="label label-info question-tag"
+                      th:each="tagPiece:${#strings.listSplit(questionDTO.tag,',')}">
                         <span class="glyphicon glyphicon-tags"></span>
                         <span th:text="${tagPiece}"></span>
                      </span>
@@ -83,9 +84,10 @@
                         <!--社交功能-->
                         <div class="menu">
                             <span class="glyphicon glyphicon-thumbs-up comment-like" aria-hidden="true"></span>
-<!--                            <span class="glyphicon glyphicon-comment comment-comment " th:data-id="${commentDTO.id}"-->
-<!--                                   th:text="${commentDTO.commentCount}"></span>-->
-                            <span class="comment-comment" th:data-id="${commentDTO.id}" onclick="collapseComments(this)">
+                            <!--                            <span class="glyphicon glyphicon-comment comment-comment " th:data-id="${commentDTO.id}"-->
+                            <!--                                   th:text="${commentDTO.commentCount}"></span>-->
+                            <span class="comment-comment" th:data-id="${commentDTO.id}"
+                                  onclick="collapseComments(this)">
 <!--                           外围span 以及其属性 class = comment-coment 将 评论图标和评论数字限制成一体，并且都有悬浮变蓝-->
                                 <span class="glyphicon glyphicon-comment  "></span>
                                 <span th:text="${commentDTO.commentCount}" class="comment-count"></span>
@@ -120,7 +122,8 @@
                 <h4>提交回复</h4>
                 <div class="media col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="media-left ">
-                            <img class="media-object img-thumbnail profile-img" th:src="${session.user!=null?session.user.avatarUrl:'/images/touxiang.png'}">
+                        <img class="media-object img-thumbnail profile-img"
+                             th:src="${session.user!=null?session.user.avatarUrl:'/images/touxiang.png'}">
                     </div>
                     <div class="media-body">
                         <h3 class="media-heading" style="font-size: medium;">
@@ -166,7 +169,7 @@
 
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <h4>夠大了嗎</h4>
-                <img class="img" src="/images/PiKaQiu.jpg" >
+                <img class="img" src="/images/PiKaQiu.jpg">
             </div>
 
 
@@ -176,8 +179,9 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <h4>相关问题</h4>
                 <ul class="ul">
-                    <li  th:each="relatedQuestion:${relatedQuestions}" >
-                        <a class="a li" th:href="@{'/question/'+${relatedQuestion.id}}" th:text="${relatedQuestion.title}"></a>
+                    <li th:each="relatedQuestion:${relatedQuestions}">
+                        <a class="a li" th:href="@{'/question/'+${relatedQuestion.id}}"
+                           th:text="${relatedQuestion.title}"></a>
                     </li>
                 </ul>
             </div>

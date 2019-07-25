@@ -2,28 +2,24 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title th:text="${sectionName}"></title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/css/community.css">
-    <script src="/js/jquery-3.4.1.min.js" ></script>
-    <script src="/js/bootstrap.min.js" ></script>
-
-
-
-
+    <script src="/js/jquery-3.4.1.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
 
 
 <body>
 <div th:insert="navigation :: nav"></div>
 
-<h2><span th:text="${sectionName}"></span> </h2>
+<h2><span th:text="${sectionName}"></span></h2>
 <br>
 
-<div class="container-fluid main " th:if="session.user!=null" >
+<div class="container-fluid main " th:if="session.user!=null">
     <div class="row">
-        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12" >
+        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="media" th:each="question:${pageDTO.datas}" th:if="${section}=='question'">
                     <div class="media-left ">
@@ -33,7 +29,7 @@
                         </a>
                     </div>
                     <div class="media-body">
-                        <h4 class="media-heading" style="font-size: medium;" >
+                        <h4 class="media-heading" style="font-size: medium;">
                             <a th:text="${question.title}" th:href="@{'/question/'+${question.id}}">
 
                             </a>
@@ -56,10 +52,12 @@
 
                     <div class="media-body">
                         <p class="media-heading" style="font-size: medium;">
-                            <sapn th:text="${notificationDTO.notifierName+' '+notificationDTO.typeName+' '}" >
+                            <sapn th:text="${notificationDTO.notifierName+' '+notificationDTO.typeName+' '}">
                             </sapn>
-                            <a th:href="@{'/notification/'+${notificationDTO.id}}" th:text="${notificationDTO.outerTitle}"></a>
-                            <span class="text-desc pull-right" th:text="${#dates.format(notificationDTO.gmtCreate,'yyyy-MM-dd HH:mm ')}"></span>
+                            <a th:href="@{'/notification/'+${notificationDTO.id}}"
+                               th:text="${notificationDTO.outerTitle}"></a>
+                            <span class="text-desc pull-right"
+                                  th:text="${#dates.format(notificationDTO.gmtCreate,'yyyy-MM-dd HH:mm ')}"></span>
                         </p>
                         <span class="label label-danger pull-right" th:if="${notificationDTO.status==0}">未读</span>
 
@@ -75,7 +73,7 @@
                             </a>
                         </li>
                         <li th:if="${pageDTO.showPrevious}">
-                            <a  th:href="@{'/profile/'+${section}(page=${pageDTO.page}-1)}" aria-label="Previous">
+                            <a th:href="@{'/profile/'+${section}(page=${pageDTO.page}-1)}" aria-label="Previous">
                                 <span aria-hidden="true">&lt;</span>
                             </a>
                         </li>
@@ -90,7 +88,7 @@
 
 
                         <li th:if="${pageDTO.showNext}">
-                            <a  th:href="@{'/profile/'+${section}(page=${pageDTO.page}+1)}" aria-label="Next">
+                            <a th:href="@{'/profile/'+${section}(page=${pageDTO.page}+1)}" aria-label="Next">
                                 <span aria-hidden="true">&gt;</span>
                             </a>
                         </li>
@@ -107,7 +105,8 @@
 
             <div class="list-group profile-section">
 
-                <a href="/profile/question" th:class="${section}=='question'?'list-group-item active':'list-group-item'">我的问题
+                <a href="/profile/question"
+                   th:class="${section}=='question'?'list-group-item active':'list-group-item'">我的问题
                     <span class="badge" th:text="${questionCount}"></span>
                 </a>
                 <a href="/profile/replies" th:class="${section}=='replies'?'list-group-item active':'list-group-item'">最新回复

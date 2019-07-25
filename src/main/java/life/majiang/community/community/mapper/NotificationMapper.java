@@ -1,6 +1,7 @@
 package life.majiang.community.community.mapper;
 
 import java.util.List;
+
 import life.majiang.community.community.model.Notification;
 import life.majiang.community.community.model.NotificationExample;
 import org.apache.ibatis.annotations.Param;

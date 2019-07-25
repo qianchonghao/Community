@@ -1,9 +1,11 @@
 package life.majiang.community.community.Provider;
+
 import com.alibaba.fastjson.JSON;
 import life.majiang.community.community.dto.AccessToeknDTO;
 import life.majiang.community.community.dto.GithubUser;
 import okhttp3.*;
 import org.springframework.stereotype.Component;
+
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
@@ -16,12 +18,12 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class GithubProvider {
 
-    public String getAccessToken(AccessToeknDTO accessTokenDTO){
+    public String getAccessToken(AccessToeknDTO accessTokenDTO) {
         //实现 code --->访问 github exchange for --->返回access Token ps:实现一来一回！
         MediaType mediaType
                 = MediaType.get("application/json; charset=utf-8");
         //MediaType作用：给Json数据一种格式要求？
-       // OkHttpClient client = new OkHttpClient();
+        // OkHttpClient client = new OkHttpClient();
         OkHttpClient client = new OkHttpClient().newBuilder().connectTimeout(50000, TimeUnit.MILLISECONDS)
                 .readTimeout(50000, TimeUnit.MILLISECONDS)
                 .build();//扩大相应时间
@@ -32,9 +34,9 @@ public class GithubProvider {
         RequestBody body = RequestBody.create(mediaType, JSON.toJSONString(accessTokenDTO));
 
         Request request = new Request.Builder()
-                    .url("https://github.com/login/oauth/access_token")
-                    .post(body)
-                    .build();
+                .url("https://github.com/login/oauth/access_token")
+                .post(body)
+                .build();
         try (Response response = client.newCall(request).execute()) {
             /*
             1.OKHttpClient client 中 ，client.newCall 返回一个Response对象
@@ -47,22 +49,22 @@ public class GithubProvider {
             System.out.println(token);
             return token;
 
-             } catch (Exception e) {
-                e.printStackTrace();
-            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
-    public GithubUser getUser(String accessToken){
+    public GithubUser getUser(String accessToken) {
         //实现 access Token --->访问Github exchange for --->user 信息
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url("https://api.github.com/user?access_token="+accessToken)
+                .url("https://api.github.com/user?access_token=" + accessToken)
                 .build();
 
         try (Response response = client.newCall(request).execute()) {
             String str = response.body().string();
-            GithubUser githubUser=JSON.parseObject(str,GithubUser.class);
+            GithubUser githubUser = JSON.parseObject(str, GithubUser.class);
             //json.parseObject 将 Str 转换成 GithubUser的对象
             return githubUser;
         } catch (IOException e) {

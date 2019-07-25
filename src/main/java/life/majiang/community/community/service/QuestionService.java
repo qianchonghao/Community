@@ -33,19 +33,18 @@ public class QuestionService {
     @Autowired
     public QuestionMapperExt questionMapperExt;
 
-    public PageDTO getList(String search,Integer page, Integer size) {
+    public PageDTO getList(String search, Integer page, Integer size) {
         //size 用來計算 totalPage
         // size*(page -1)
         //offset 和size作用：questionMapper内选取数据库question信息
         Integer totalPage;
 
-        String regexSearch=null;
+        String regexSearch = null;
 
 
-
-        if(!StringUtils.isBlank(search)){
-            String[] searchs=StringUtils.split(search,' ');
-            regexSearch=Arrays.stream(searchs).collect(Collectors.joining("|"));
+        if (!StringUtils.isBlank(search)) {
+            String[] searchs = StringUtils.split(search, ' ');
+            regexSearch = Arrays.stream(searchs).collect(Collectors.joining("|"));
         }
 
         QuestionQueryDTO query = new QuestionQueryDTO();
@@ -54,11 +53,11 @@ public class QuestionService {
         Integer totalCount = questionMapperExt.countBySearch(query);
         //   totalCount= (int)(questionMapper.countByExample(new QuestionExample()));原始count方法
 
-        if(totalCount% size ==0){
-            totalPage=totalCount/size;
+        if (totalCount % size == 0) {
+            totalPage = totalCount / size;
 
-        }else{
-            totalPage=totalCount/size+1;
+        } else {
+            totalPage = totalCount / size + 1;
         }
 
         if (page < 1) page = 1;
@@ -86,12 +85,12 @@ public class QuestionService {
         }
         pageDTO.setDatas(list);
 
-        pageDTO.setPageInfo(totalPage,page);
+        pageDTO.setPageInfo(totalPage, page);
         return pageDTO;
     }
 
 
-    public PageDTO getMyPageDTO(Long id,Integer page, Integer size) {
+    public PageDTO getMyPageDTO(Long id, Integer page, Integer size) {
         //size 計算 --->totalPage---->关乎ShowEnd等boolean变量设置
         // offset=size*(page -1)
         //offset 和size作用：questionMapper内选取数据库question信息，
@@ -99,18 +98,18 @@ public class QuestionService {
         Integer totalPage;
         QuestionExample example = new QuestionExample();
         example.createCriteria().andCreatorEqualTo(id);
-        Integer totalCount = (int)questionMapper.countByExample(example);
+        Integer totalCount = (int) questionMapper.countByExample(example);
 
-        if(totalCount% size ==0){
-            totalPage=totalCount/size;
+        if (totalCount % size == 0) {
+            totalPage = totalCount / size;
 
-        }else{
-            totalPage=totalCount/size+1;
+        } else {
+            totalPage = totalCount / size + 1;
         }
 
-        if(page<1)page=1;
+        if (page < 1) page = 1;
 
-        else if(page>totalPage) page=totalPage;
+        else if (page > totalPage) page = totalPage;
 
         Integer offset = size * (page - 1);
 
@@ -121,7 +120,7 @@ public class QuestionService {
         QuestionExample example1 = new QuestionExample();
         example1.createCriteria().andCreatorEqualTo(id);
         example1.setOrderByClause("gmt_create DESC");
-        List<Question> questions=questionMapper.selectByExampleWithRowbounds(example1,new RowBounds(offset,size));
+        List<Question> questions = questionMapper.selectByExampleWithRowbounds(example1, new RowBounds(offset, size));
 
         for (Question question : questions) {
             User user = userMapper.selectByPrimaryKey(question.getCreator());
@@ -133,33 +132,33 @@ public class QuestionService {
         }
         pageDTO.setDatas(list);
 
-        pageDTO.setPageInfo(totalPage,page);
+        pageDTO.setPageInfo(totalPage, page);
         return pageDTO;
     }
 
     public QuestionDTO getById(Long id) {
         //此处id是 question的主键ID 是唯一的。userId对应的是question.creator
         Question question = questionMapper.selectByPrimaryKey(id);
-        if(question==null){
+        if (question == null) {
             throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
             //
         }
         User user = userMapper.selectByPrimaryKey(question.getCreator());
-        QuestionDTO questionDTO =new QuestionDTO();
-        BeanUtils.copyProperties(question,questionDTO);
+        QuestionDTO questionDTO = new QuestionDTO();
+        BeanUtils.copyProperties(question, questionDTO);
         questionDTO.setUser(user);
-        return  questionDTO;
+        return questionDTO;
     }
 
 
     public void updateOrCreate(Question question, Long questionId) {
-        if(questionId!=0){
+        if (questionId != 0) {
 
             question.setGmtModified(System.currentTimeMillis());
             question.setId(questionId);
             Question temp = questionMapper.selectByPrimaryKey(questionId);
 
-           question.setId(temp.getId());
+            question.setId(temp.getId());
             question.setViewCount(temp.getViewCount());
             question.setCommentCount(temp.getCommentCount());
             question.setLikeCount(temp.getLikeCount());
@@ -168,11 +167,11 @@ public class QuestionService {
 
             QuestionExample example = new QuestionExample();
             example.createCriteria().andIdEqualTo(questionId);
-           int update= questionMapper.updateByExample(question, example);
-           if(update==0){
-               throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
-           }
-        }else{
+            int update = questionMapper.updateByExample(question, example);
+            if (update == 0) {
+                throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+            }
+        } else {
             question.setGmtCreate(System.currentTimeMillis());
             question.setGmtModified(question.getGmtCreate());
 
@@ -193,24 +192,24 @@ public class QuestionService {
     }
 
     public List<QuestionDTO> selectRelated(QuestionDTO questionDTO) {
-        if(StringUtils.isBlank(questionDTO.getTag())){
+        if (StringUtils.isBlank(questionDTO.getTag())) {
             return new ArrayList<>();
-        }else{
+        } else {
 
 
 //            String[] tags=StringUtils.split(questionDTO.getTag(),',');
 //            String regexTag=Arrays.stream(tags).collect(Collectors.joining("|"));
-            String[] tags=StringUtils.split(questionDTO.getTag(),',');
-            List<String>list = Arrays.asList(tags);
-            String regexTag=list.stream().collect(Collectors.joining("|"));
+            String[] tags = StringUtils.split(questionDTO.getTag(), ',');
+            List<String> list = Arrays.asList(tags);
+            String regexTag = list.stream().collect(Collectors.joining("|"));
             //delimeter 分隔符
             Question question = new Question();
             question.setId(questionDTO.getId());
             question.setTag(regexTag);//通過StringJoiner 将tag转化成regex形式，然后set到参数question
-            List<Question>  questions=questionMapperExt.selectRelated(question);
-            List<QuestionDTO>questionDTOS=questions.stream().map(tempQuestion->{
+            List<Question> questions = questionMapperExt.selectRelated(question);
+            List<QuestionDTO> questionDTOS = questions.stream().map(tempQuestion -> {
                 QuestionDTO tempQuestionDTO = new QuestionDTO();
-                BeanUtils.copyProperties(tempQuestion,tempQuestionDTO);
+                BeanUtils.copyProperties(tempQuestion, tempQuestionDTO);
                 //copyProperties(src，editable)
                 tempQuestionDTO.setUser(userMapper.selectByPrimaryKey(tempQuestion.getCreator()));
                 return tempQuestionDTO;

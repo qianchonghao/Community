@@ -22,17 +22,18 @@ public class CustomizeErrorController implements ErrorController {
     public String getErrorPath() {
         return "error";
     }
+
     @RequestMapping(
             produces = {"text/html"}
     )
     public ModelAndView errorHtml(HttpServletRequest request, Model model) {
         HttpStatus status = this.getStatus(request);//获得handler无法处理的异常code
-        if(status.is4xxClientError()){
+        if (status.is4xxClientError()) {
             //4xx客户端引起
-            model.addAttribute("message","客户端请求出错");
+            model.addAttribute("message", "客户端请求出错");
         }
-        if(status.is5xxServerError()){
-            model.addAttribute("message","服务器出错");
+        if (status.is5xxServerError()) {
+            model.addAttribute("message", "服务器出错");
         }
         return new ModelAndView("error");
     }
@@ -40,7 +41,7 @@ public class CustomizeErrorController implements ErrorController {
     private HttpStatus getStatus(HttpServletRequest request) {
         //getStatus 是为了返回出错code ，常用在ErrorController中getStatus代码源自BasicErrorController
         //HttpStatus status = this.getStatus(request)
-        Integer statusCode = (Integer)request.getAttribute("javax.servlet.error.status_code");
+        Integer statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
         if (statusCode == null) {
             return HttpStatus.INTERNAL_SERVER_ERROR;
         } else {

@@ -9,6 +9,7 @@ public class GithubUser {
     private String bio;
     private String login;
     private String avatarUrl;
+
     @Override
     public String toString() {
         return "GithubUser{" +
