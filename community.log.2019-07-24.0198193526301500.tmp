@@ -1,0 +1,241 @@
+2019-07-24 15:19:46.015 DEBUG 3312 --- [Catalina-utility-1] org.apache.catalina.session.ManagerBase  : Start expire sessions StandardManager at 1563952786015 sessioncount 1
+2019-07-24 15:19:46.036 DEBUG 3312 --- [Catalina-utility-1] org.apache.catalina.session.ManagerBase  : End expire sessions StandardManager processingTime 20 expired sessions: 0
+2019-07-24 15:19:46.696 DEBUG 3312 --- [File Watcher] o.s.boot.devtools.restart.Restarter      : Restarting application
+2019-07-24 15:19:46.697 DEBUG 3312 --- [Thread-16] o.s.boot.devtools.restart.Restarter      : Stopping application
+2019-07-24 15:19:46.698 DEBUG 3312 --- [Thread-16] ConfigServletWebServerApplicationContext : Closing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@76582e04, started on Wed Jul 24 15:12:45 CST 2019
+2019-07-24 15:19:46.706 DEBUG 3312 --- [Thread-16] o.s.c.e.PropertySourcesPropertyResolver  : Found key 'spring.liveBeansView.mbeanDomain' in PropertySource 'systemProperties' with value of type String
+2019-07-24 15:19:46.709 DEBUG 3312 --- [Thread-16] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans on shutdown
+2019-07-24 15:19:46.709 DEBUG 3312 --- [Thread-16] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans
+2019-07-24 15:19:47.187 DEBUG 3312 --- [Thread-16] o.s.boot.devtools.restart.Restarter      : Created RestartClassLoader org.springframework.boot.devtools.restart.classloader.RestartClassLoader@688a6c94
+2019-07-24 15:19:47.190 DEBUG 3312 --- [Thread-16] o.s.boot.devtools.restart.Restarter      : Starting application life.majiang.community.community.CommunityApplication with URLs [file:/C:/Users/57446/IdeaProjects/community/target/classes/]
+2019-07-24 15:19:47.252  INFO 3312 --- [restartedMain] l.m.c.community.CommunityApplication     : Starting CommunityApplication on DESKTOP-7DIEUL3 with PID 3312 (C:\Users\57446\IdeaProjects\community\target\classes started by 57446 in C:\Users\57446\IdeaProjects\community)
+2019-07-24 15:19:47.254  INFO 3312 --- [restartedMain] l.m.c.community.CommunityApplication     : No active profile set, falling back to default profiles: default
+2019-07-24 15:19:47.428  INFO 12344 --- [restartedMain] l.m.c.community.CommunityApplication     : Starting CommunityApplication on DESKTOP-7DIEUL3 with PID 12344 (C:\Users\57446\IdeaProjects\community\target\classes started by 57446 in C:\Users\57446\IdeaProjects\community)
+2019-07-24 15:19:47.430  INFO 12344 --- [restartedMain] l.m.c.community.CommunityApplication     : No active profile set, falling back to default profiles: default
+2019-07-24 15:19:47.498  INFO 12344 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-07-24 15:19:47.498  INFO 12344 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-07-24 15:19:47.977  INFO 3312 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8090 (http)
+2019-07-24 15:19:47.979  INFO 3312 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-07-24 15:19:47.979  INFO 3312 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.21]
+2019-07-24 15:19:48.012  INFO 3312 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-07-24 15:19:48.012  INFO 3312 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 754 ms
+2019-07-24 15:19:48.397  INFO 3312 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2019-07-24 15:19:48.415  INFO 3312 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8090 (http) with context path ''
+2019-07-24 15:19:48.415  INFO 3312 --- [restartedMain] l.m.c.community.CommunityApplication     : Started CommunityApplication in 1.207 seconds (JVM running for 686.842)
+2019-07-24 15:19:48.417  INFO 3312 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2019-07-24 15:19:48.836  INFO 12344 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8090 (http)
+2019-07-24 15:19:48.857  INFO 12344 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-07-24 15:19:48.858  INFO 12344 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.21]
+2019-07-24 15:19:48.947  INFO 12344 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-07-24 15:19:48.948  INFO 12344 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1450 ms
+2019-07-24 15:19:50.108  WARN 12344 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : Unable to start LiveReload server
+2019-07-24 15:19:50.161 ERROR 12344 --- [restartedMain] org.apache.catalina.util.LifecycleBase   : Failed to start component [Connector[HTTP/1.1-8090]]
+
+org.apache.catalina.LifecycleException: Protocol handler start failed
+	at org.apache.catalina.connector.Connector.startInternal(Connector.java:1008) ~[tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) ~[tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.core.StandardService.addConnector(StandardService.java:227) ~[tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.addPreviouslyRemovedConnectors(TomcatWebServer.java:263) ~[spring-boot-2.1.6.RELEASE.jar:2.1.6.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:195) ~[spring-boot-2.1.6.RELEASE.jar:2.1.6.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.startWebServer(ServletWebServerApplicationContext.java:296) ~[spring-boot-2.1.6.RELEASE.jar:2.1.6.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.finishRefresh(ServletWebServerApplicationContext.java:162) ~[spring-boot-2.1.6.RELEASE.jar:2.1.6.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:552) ~[spring-context-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:140) ~[spring-boot-2.1.6.RELEASE.jar:2.1.6.RELEASE]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:742) ~[spring-boot-2.1.6.RELEASE.jar:2.1.6.RELEASE]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:389) ~[spring-boot-2.1.6.RELEASE.jar:2.1.6.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:311) ~[spring-boot-2.1.6.RELEASE.jar:2.1.6.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1213) ~[spring-boot-2.1.6.RELEASE.jar:2.1.6.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1202) ~[spring-boot-2.1.6.RELEASE.jar:2.1.6.RELEASE]
+	at life.majiang.community.community.CommunityApplication.main(CommunityApplication.java:13) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:567) ~[na:na]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49) ~[spring-boot-devtools-2.1.6.RELEASE.jar:2.1.6.RELEASE]
+Caused by: java.net.BindException: Address already in use: bind
+	at java.base/sun.nio.ch.Net.bind0(Native Method) ~[na:na]
+	at java.base/sun.nio.ch.Net.bind(Net.java:455) ~[na:na]
+	at java.base/sun.nio.ch.Net.bind(Net.java:447) ~[na:na]
+	at java.base/sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:219) ~[na:na]
+	at java.base/sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:80) ~[na:na]
+	at org.apache.tomcat.util.net.NioEndpoint.initServerSocket(NioEndpoint.java:230) ~[tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.tomcat.util.net.NioEndpoint.bind(NioEndpoint.java:213) ~[tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.tomcat.util.net.AbstractEndpoint.bindWithCleanup(AbstractEndpoint.java:1124) ~[tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.tomcat.util.net.AbstractEndpoint.start(AbstractEndpoint.java:1210) ~[tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.coyote.AbstractProtocol.start(AbstractProtocol.java:585) ~[tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.connector.Connector.startInternal(Connector.java:1005) ~[tomcat-embed-core-9.0.21.jar:9.0.21]
+	... 19 common frames omitted
+
+2019-07-24 15:19:50.166  INFO 12344 --- [restartedMain] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2019-07-24 15:19:50.175  INFO 12344 --- [restartedMain] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2019-07-24 15:19:50.179 ERROR 12344 --- [restartedMain] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+The Tomcat connector configured to listen on port 8090 failed to start. The port may already be in use or the connector may be misconfigured.
+
+Action:
+
+Verify the connector's configuration, identify and stop any process that's listening on port 8090, or configure this application to listen on another port.
+
+2019-07-24 15:27:41.094  INFO 3788 --- [restartedMain] l.m.c.community.CommunityApplication     : Starting CommunityApplication on DESKTOP-7DIEUL3 with PID 3788 (C:\Users\57446\IdeaProjects\community\target\classes started by 57446 in C:\Users\57446\IdeaProjects\community)
+2019-07-24 15:27:41.118  INFO 3788 --- [restartedMain] l.m.c.community.CommunityApplication     : No active profile set, falling back to default profiles: default
+2019-07-24 15:27:41.188  INFO 3788 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-07-24 15:27:41.189  INFO 3788 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-07-24 15:27:42.723  INFO 3788 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8090 (http)
+2019-07-24 15:27:42.749  INFO 3788 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-07-24 15:27:42.750  INFO 3788 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.21]
+2019-07-24 15:27:42.846  INFO 3788 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-07-24 15:27:42.847  INFO 3788 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1657 ms
+2019-07-24 15:27:44.175  INFO 3788 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2019-07-24 15:27:44.256  INFO 3788 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8090 (http) with context path ''
+2019-07-24 15:27:44.261  INFO 3788 --- [restartedMain] l.m.c.community.CommunityApplication     : Started CommunityApplication in 3.765 seconds (JVM running for 5.385)
+2019-07-24 15:28:05.959  INFO 3788 --- [http-nio-8090-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-07-24 15:28:05.961  INFO 3788 --- [http-nio-8090-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-07-24 15:28:05.970  INFO 3788 --- [http-nio-8090-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 8 ms
+2019-07-24 15:28:06.045  INFO 3788 --- [http-nio-8090-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2019-07-24 15:28:06.178  INFO 3788 --- [http-nio-8090-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2019-07-24 15:28:06.527  WARN 3788 --- [http-nio-8090-exec-3] o.a.c.util.SessionIdGeneratorBase        : Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [317] milliseconds.
+2019-07-24 15:28:06.527  WARN 3788 --- [http-nio-8090-exec-1] o.a.c.util.SessionIdGeneratorBase        : Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [317] milliseconds.
+2019-07-24 15:29:53.477  INFO 3280 --- [restartedMain] l.m.c.community.CommunityApplication     : Starting CommunityApplication on DESKTOP-7DIEUL3 with PID 3280 (C:\Users\57446\IdeaProjects\community\target\classes started by 57446 in C:\Users\57446\IdeaProjects\community)
+2019-07-24 15:29:53.480  INFO 3280 --- [restartedMain] l.m.c.community.CommunityApplication     : No active profile set, falling back to default profiles: default
+2019-07-24 15:29:53.520  INFO 3280 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-07-24 15:29:53.521  INFO 3280 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-07-24 15:29:54.842  INFO 3280 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8090 (http)
+2019-07-24 15:29:54.863  INFO 3280 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-07-24 15:29:54.863  INFO 3280 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.21]
+2019-07-24 15:29:54.951  INFO 3280 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-07-24 15:29:54.952  INFO 3280 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1431 ms
+2019-07-24 15:29:55.949  INFO 3280 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2019-07-24 15:29:56.003  INFO 3280 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8090 (http) with context path ''
+2019-07-24 15:29:56.006  INFO 3280 --- [restartedMain] l.m.c.community.CommunityApplication     : Started CommunityApplication in 2.827 seconds (JVM running for 3.688)
+2019-07-24 15:30:08.672  INFO 3280 --- [http-nio-8090-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-07-24 15:30:08.674  INFO 3280 --- [http-nio-8090-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-07-24 15:30:08.681  INFO 3280 --- [http-nio-8090-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 6 ms
+2019-07-24 15:30:08.733  INFO 3280 --- [http-nio-8090-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2019-07-24 15:30:08.855  INFO 3280 --- [http-nio-8090-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2019-07-24 15:30:09.134  WARN 3280 --- [http-nio-8090-exec-1] o.a.c.util.SessionIdGeneratorBase        : Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [247] milliseconds.
+2019-07-24 15:33:26.004  INFO 3280 --- [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2019-07-24 15:33:26.041  INFO 3280 --- [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2019-07-24 15:33:26.430  INFO 3280 --- [restartedMain] l.m.c.community.CommunityApplication     : Starting CommunityApplication on DESKTOP-7DIEUL3 with PID 3280 (C:\Users\57446\IdeaProjects\community\target\classes started by 57446 in C:\Users\57446\IdeaProjects\community)
+2019-07-24 15:33:26.430  INFO 3280 --- [restartedMain] l.m.c.community.CommunityApplication     : No active profile set, falling back to default profiles: default
+2019-07-24 15:33:26.852  INFO 3280 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8090 (http)
+2019-07-24 15:33:26.854  INFO 3280 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-07-24 15:33:26.854  INFO 3280 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.21]
+2019-07-24 15:33:26.881  INFO 3280 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-07-24 15:33:26.881  INFO 3280 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 449 ms
+2019-07-24 15:33:27.277  INFO 3280 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2019-07-24 15:33:27.304  INFO 3280 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8090 (http) with context path ''
+2019-07-24 15:33:27.305  INFO 3280 --- [restartedMain] l.m.c.community.CommunityApplication     : Started CommunityApplication in 0.899 seconds (JVM running for 214.987)
+2019-07-24 15:33:27.307  INFO 3280 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2019-07-24 15:34:44.747  INFO 3280 --- [http-nio-8090-exec-3] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-07-24 15:34:44.748  INFO 3280 --- [http-nio-8090-exec-3] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-07-24 15:34:44.751  INFO 3280 --- [http-nio-8090-exec-3] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2019-07-24 15:34:44.755  INFO 3280 --- [http-nio-8090-exec-3] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2019-07-24 15:34:44.762  INFO 3280 --- [http-nio-8090-exec-3] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2019-07-24 15:34:44.765 DEBUG 3280 --- [http-nio-8090-exec-3] l.m.c.c.m.UserMapper.selectByExample     : ==>  Preparing: select ID, TOKEN, ACCOUNT_ID, NAME, BIO, GMT_CREATE, GMT_MODIFIED, AVATAR_URL from USER WHERE ( TOKEN = ? ) 
+2019-07-24 15:34:44.771 DEBUG 3280 --- [http-nio-8090-exec-3] l.m.c.c.m.UserMapper.selectByExample     : ==> Parameters: 5581cb30-6eda-438b-895e-3d417b6727a1(String)
+2019-07-24 15:34:44.777 DEBUG 3280 --- [http-nio-8090-exec-3] l.m.c.c.m.UserMapper.selectByExample     : <==      Total: 1
+2019-07-24 15:34:44.780 DEBUG 3280 --- [http-nio-8090-exec-3] l.m.c.c.m.N.countByExample               : ==>  Preparing: select count(*) from NOTIFICATION WHERE ( RECEIVER = ? and STATUS = ? ) 
+2019-07-24 15:34:44.780 DEBUG 3280 --- [http-nio-8090-exec-3] l.m.c.c.m.N.countByExample               : ==> Parameters: 293(Long), 0(Integer)
+2019-07-24 15:34:44.781 DEBUG 3280 --- [http-nio-8090-exec-3] l.m.c.c.m.N.countByExample               : <==      Total: 1
+2019-07-24 15:34:44.845 DEBUG 3280 --- [http-nio-8090-exec-2] l.m.c.c.m.UserMapper.selectByExample     : ==>  Preparing: select ID, TOKEN, ACCOUNT_ID, NAME, BIO, GMT_CREATE, GMT_MODIFIED, AVATAR_URL from USER WHERE ( TOKEN = ? ) 
+2019-07-24 15:34:44.845 DEBUG 3280 --- [http-nio-8090-exec-2] l.m.c.c.m.UserMapper.selectByExample     : ==> Parameters: 5581cb30-6eda-438b-895e-3d417b6727a1(String)
+2019-07-24 15:34:44.850 DEBUG 3280 --- [http-nio-8090-exec-2] l.m.c.c.m.UserMapper.selectByExample     : <==      Total: 1
+2019-07-24 15:34:44.852 DEBUG 3280 --- [http-nio-8090-exec-2] l.m.c.c.m.N.countByExample               : ==>  Preparing: select count(*) from NOTIFICATION WHERE ( RECEIVER = ? and STATUS = ? ) 
+2019-07-24 15:34:44.852 DEBUG 3280 --- [http-nio-8090-exec-2] l.m.c.c.m.N.countByExample               : ==> Parameters: 293(Long), 0(Integer)
+2019-07-24 15:34:44.853 DEBUG 3280 --- [http-nio-8090-exec-2] l.m.c.c.m.N.countByExample               : <==      Total: 1
+2019-07-24 15:34:44.923 DEBUG 3280 --- [http-nio-8090-exec-1] l.m.c.c.m.UserMapper.selectByExample     : ==>  Preparing: select ID, TOKEN, ACCOUNT_ID, NAME, BIO, GMT_CREATE, GMT_MODIFIED, AVATAR_URL from USER WHERE ( TOKEN = ? ) 
+2019-07-24 15:34:44.924 DEBUG 3280 --- [http-nio-8090-exec-1] l.m.c.c.m.UserMapper.selectByExample     : ==> Parameters: 5581cb30-6eda-438b-895e-3d417b6727a1(String)
+2019-07-24 15:34:44.925 DEBUG 3280 --- [http-nio-8090-exec-4] l.m.c.c.m.UserMapper.selectByExample     : ==>  Preparing: select ID, TOKEN, ACCOUNT_ID, NAME, BIO, GMT_CREATE, GMT_MODIFIED, AVATAR_URL from USER WHERE ( TOKEN = ? ) 
+2019-07-24 15:34:44.926 DEBUG 3280 --- [http-nio-8090-exec-4] l.m.c.c.m.UserMapper.selectByExample     : ==> Parameters: 5581cb30-6eda-438b-895e-3d417b6727a1(String)
+2019-07-24 15:34:44.927 DEBUG 3280 --- [http-nio-8090-exec-1] l.m.c.c.m.UserMapper.selectByExample     : <==      Total: 1
+2019-07-24 15:34:44.929 DEBUG 3280 --- [http-nio-8090-exec-4] l.m.c.c.m.UserMapper.selectByExample     : <==      Total: 1
+2019-07-24 15:34:44.933 DEBUG 3280 --- [http-nio-8090-exec-4] l.m.c.c.m.N.countByExample               : ==>  Preparing: select count(*) from NOTIFICATION WHERE ( RECEIVER = ? and STATUS = ? ) 
+2019-07-24 15:34:44.933 DEBUG 3280 --- [http-nio-8090-exec-6] l.m.c.c.m.UserMapper.selectByExample     : ==>  Preparing: select ID, TOKEN, ACCOUNT_ID, NAME, BIO, GMT_CREATE, GMT_MODIFIED, AVATAR_URL from USER WHERE ( TOKEN = ? ) 
+2019-07-24 15:34:44.927 DEBUG 3280 --- [http-nio-8090-exec-5] l.m.c.c.m.UserMapper.selectByExample     : ==>  Preparing: select ID, TOKEN, ACCOUNT_ID, NAME, BIO, GMT_CREATE, GMT_MODIFIED, AVATAR_URL from USER WHERE ( TOKEN = ? ) 
+2019-07-24 15:34:44.934 DEBUG 3280 --- [http-nio-8090-exec-6] l.m.c.c.m.UserMapper.selectByExample     : ==> Parameters: 5581cb30-6eda-438b-895e-3d417b6727a1(String)
+2019-07-24 15:34:44.934 DEBUG 3280 --- [http-nio-8090-exec-4] l.m.c.c.m.N.countByExample               : ==> Parameters: 293(Long), 0(Integer)
+2019-07-24 15:34:44.935 DEBUG 3280 --- [http-nio-8090-exec-1] l.m.c.c.m.N.countByExample               : ==>  Preparing: select count(*) from NOTIFICATION WHERE ( RECEIVER = ? and STATUS = ? ) 
+2019-07-24 15:34:44.935 DEBUG 3280 --- [http-nio-8090-exec-4] l.m.c.c.m.N.countByExample               : <==      Total: 1
+2019-07-24 15:34:44.936 DEBUG 3280 --- [http-nio-8090-exec-1] l.m.c.c.m.N.countByExample               : ==> Parameters: 293(Long), 0(Integer)
+2019-07-24 15:34:44.936 DEBUG 3280 --- [http-nio-8090-exec-5] l.m.c.c.m.UserMapper.selectByExample     : ==> Parameters: 5581cb30-6eda-438b-895e-3d417b6727a1(String)
+2019-07-24 15:34:44.936 DEBUG 3280 --- [http-nio-8090-exec-6] l.m.c.c.m.UserMapper.selectByExample     : <==      Total: 1
+2019-07-24 15:34:44.936 DEBUG 3280 --- [http-nio-8090-exec-1] l.m.c.c.m.N.countByExample               : <==      Total: 1
+2019-07-24 15:34:44.937 DEBUG 3280 --- [http-nio-8090-exec-5] l.m.c.c.m.UserMapper.selectByExample     : <==      Total: 1
+2019-07-24 15:34:44.937 DEBUG 3280 --- [http-nio-8090-exec-6] l.m.c.c.m.N.countByExample               : ==>  Preparing: select count(*) from NOTIFICATION WHERE ( RECEIVER = ? and STATUS = ? ) 
+2019-07-24 15:34:44.938 DEBUG 3280 --- [http-nio-8090-exec-5] l.m.c.c.m.N.countByExample               : ==>  Preparing: select count(*) from NOTIFICATION WHERE ( RECEIVER = ? and STATUS = ? ) 
+2019-07-24 15:34:44.938 DEBUG 3280 --- [http-nio-8090-exec-6] l.m.c.c.m.N.countByExample               : ==> Parameters: 293(Long), 0(Integer)
+2019-07-24 15:34:44.938 DEBUG 3280 --- [http-nio-8090-exec-5] l.m.c.c.m.N.countByExample               : ==> Parameters: 293(Long), 0(Integer)
+2019-07-24 15:34:44.938 DEBUG 3280 --- [http-nio-8090-exec-5] l.m.c.c.m.N.countByExample               : <==      Total: 1
+2019-07-24 15:34:44.938 DEBUG 3280 --- [http-nio-8090-exec-6] l.m.c.c.m.N.countByExample               : <==      Total: 1
+2019-07-24 15:34:45.036 DEBUG 3280 --- [http-nio-8090-exec-7] l.m.c.c.m.UserMapper.selectByExample     : ==>  Preparing: select ID, TOKEN, ACCOUNT_ID, NAME, BIO, GMT_CREATE, GMT_MODIFIED, AVATAR_URL from USER WHERE ( TOKEN = ? ) 
+2019-07-24 15:34:45.036 DEBUG 3280 --- [http-nio-8090-exec-7] l.m.c.c.m.UserMapper.selectByExample     : ==> Parameters: 5581cb30-6eda-438b-895e-3d417b6727a1(String)
+2019-07-24 15:34:45.038 DEBUG 3280 --- [http-nio-8090-exec-7] l.m.c.c.m.UserMapper.selectByExample     : <==      Total: 1
+2019-07-24 15:34:45.038 DEBUG 3280 --- [http-nio-8090-exec-7] l.m.c.c.m.N.countByExample               : ==>  Preparing: select count(*) from NOTIFICATION WHERE ( RECEIVER = ? and STATUS = ? ) 
+2019-07-24 15:34:45.039 DEBUG 3280 --- [http-nio-8090-exec-7] l.m.c.c.m.N.countByExample               : ==> Parameters: 293(Long), 0(Integer)
+2019-07-24 15:34:45.039 DEBUG 3280 --- [http-nio-8090-exec-7] l.m.c.c.m.N.countByExample               : <==      Total: 1
+2019-07-24 15:34:53.427 DEBUG 3280 --- [http-nio-8090-exec-9] l.m.c.c.m.UserMapper.selectByExample     : ==>  Preparing: select ID, TOKEN, ACCOUNT_ID, NAME, BIO, GMT_CREATE, GMT_MODIFIED, AVATAR_URL from USER WHERE ( TOKEN = ? ) 
+2019-07-24 15:34:53.428 DEBUG 3280 --- [http-nio-8090-exec-9] l.m.c.c.m.UserMapper.selectByExample     : ==> Parameters: 5581cb30-6eda-438b-895e-3d417b6727a1(String)
+2019-07-24 15:34:53.428 DEBUG 3280 --- [http-nio-8090-exec-9] l.m.c.c.m.UserMapper.selectByExample     : <==      Total: 1
+2019-07-24 15:34:53.429 DEBUG 3280 --- [http-nio-8090-exec-9] l.m.c.c.m.N.countByExample               : ==>  Preparing: select count(*) from NOTIFICATION WHERE ( RECEIVER = ? and STATUS = ? ) 
+2019-07-24 15:34:53.429 DEBUG 3280 --- [http-nio-8090-exec-9] l.m.c.c.m.N.countByExample               : ==> Parameters: 293(Long), 0(Integer)
+2019-07-24 15:34:53.430 DEBUG 3280 --- [http-nio-8090-exec-9] l.m.c.c.m.N.countByExample               : <==      Total: 1
+2019-07-24 15:35:18.091 DEBUG 3280 --- [http-nio-8090-exec-10] l.m.c.c.m.UserMapper.selectByExample     : ==>  Preparing: select ID, TOKEN, ACCOUNT_ID, NAME, BIO, GMT_CREATE, GMT_MODIFIED, AVATAR_URL from USER WHERE ( TOKEN = ? ) 
+2019-07-24 15:35:18.092 DEBUG 3280 --- [http-nio-8090-exec-10] l.m.c.c.m.UserMapper.selectByExample     : ==> Parameters: 5581cb30-6eda-438b-895e-3d417b6727a1(String)
+2019-07-24 15:35:18.092 DEBUG 3280 --- [http-nio-8090-exec-10] l.m.c.c.m.UserMapper.selectByExample     : <==      Total: 1
+2019-07-24 15:35:18.093 DEBUG 3280 --- [http-nio-8090-exec-10] l.m.c.c.m.N.countByExample               : ==>  Preparing: select count(*) from NOTIFICATION WHERE ( RECEIVER = ? and STATUS = ? ) 
+2019-07-24 15:35:18.093 DEBUG 3280 --- [http-nio-8090-exec-10] l.m.c.c.m.N.countByExample               : ==> Parameters: 293(Long), 0(Integer)
+2019-07-24 15:35:18.094 DEBUG 3280 --- [http-nio-8090-exec-10] l.m.c.c.m.N.countByExample               : <==      Total: 1
+2019-07-24 15:35:23.265 DEBUG 3280 --- [http-nio-8090-exec-3] l.m.c.c.m.UserMapper.selectByExample     : ==>  Preparing: select ID, TOKEN, ACCOUNT_ID, NAME, BIO, GMT_CREATE, GMT_MODIFIED, AVATAR_URL from USER WHERE ( TOKEN = ? ) 
+2019-07-24 15:35:23.266 DEBUG 3280 --- [http-nio-8090-exec-3] l.m.c.c.m.UserMapper.selectByExample     : ==> Parameters: 5581cb30-6eda-438b-895e-3d417b6727a1(String)
+2019-07-24 15:35:23.267 DEBUG 3280 --- [http-nio-8090-exec-3] l.m.c.c.m.UserMapper.selectByExample     : <==      Total: 1
+2019-07-24 15:35:23.267 DEBUG 3280 --- [http-nio-8090-exec-3] l.m.c.c.m.N.countByExample               : ==>  Preparing: select count(*) from NOTIFICATION WHERE ( RECEIVER = ? and STATUS = ? ) 
+2019-07-24 15:35:23.267 DEBUG 3280 --- [http-nio-8090-exec-3] l.m.c.c.m.N.countByExample               : ==> Parameters: 293(Long), 0(Integer)
+2019-07-24 15:35:23.267 DEBUG 3280 --- [http-nio-8090-exec-3] l.m.c.c.m.N.countByExample               : <==      Total: 1
+2019-07-24 15:35:23.270 DEBUG 3280 --- [http-nio-8090-exec-3] l.m.c.c.mapper.QuestionMapper.insert     : ==>  Preparing: insert into QUESTION (ID, TITLE, DESCRIPTION, GMT_CREATE, GMT_MODIFIED, CREATOR, COMMENT_COUNT, VIEW_COUNT, LIKE_COUNT, TAG) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) 
+2019-07-24 15:35:23.271 DEBUG 3280 --- [http-nio-8090-exec-3] l.m.c.c.mapper.QuestionMapper.insert     : ==> Parameters: null, 测测(String), 测测![](http://koushuiwa.cn-bj.ufileos.com/45ade338-79e0-43ce-946f-44df82bf7aff.png?UCloudPublicKey=TOKEN_534e5285-a099-4ca3-a63c-5486b93c9f12&Signature=Q4IjmeKp0D3Hq7JCpGXtG5Lh4X8%3D&Expires=1615793718)(String), 1563953723270(Long), 1563953723270(Long), 293(Long), 0(Integer), 0(Integer), 0(Integer), html(String)
+2019-07-24 15:35:23.271 DEBUG 3280 --- [http-nio-8090-exec-3] l.m.c.c.mapper.QuestionMapper.insert     : <==    Updates: 1
+2019-07-24 15:35:23.276 DEBUG 3280 --- [http-nio-8090-exec-2] l.m.c.c.m.UserMapper.selectByExample     : ==>  Preparing: select ID, TOKEN, ACCOUNT_ID, NAME, BIO, GMT_CREATE, GMT_MODIFIED, AVATAR_URL from USER WHERE ( TOKEN = ? ) 
+2019-07-24 15:35:23.277 DEBUG 3280 --- [http-nio-8090-exec-2] l.m.c.c.m.UserMapper.selectByExample     : ==> Parameters: 5581cb30-6eda-438b-895e-3d417b6727a1(String)
+2019-07-24 15:35:23.277 DEBUG 3280 --- [http-nio-8090-exec-2] l.m.c.c.m.UserMapper.selectByExample     : <==      Total: 1
+2019-07-24 15:35:23.277 DEBUG 3280 --- [http-nio-8090-exec-2] l.m.c.c.m.N.countByExample               : ==>  Preparing: select count(*) from NOTIFICATION WHERE ( RECEIVER = ? and STATUS = ? ) 
+2019-07-24 15:35:23.277 DEBUG 3280 --- [http-nio-8090-exec-2] l.m.c.c.m.N.countByExample               : ==> Parameters: 293(Long), 0(Integer)
+2019-07-24 15:35:23.277 DEBUG 3280 --- [http-nio-8090-exec-2] l.m.c.c.m.N.countByExample               : <==      Total: 1
+2019-07-24 15:35:23.279 DEBUG 3280 --- [http-nio-8090-exec-2] l.m.c.c.m.Q.countBySearch                : ==>  Preparing: select count(*) from QUESTION 
+2019-07-24 15:35:23.279 DEBUG 3280 --- [http-nio-8090-exec-2] l.m.c.c.m.Q.countBySearch                : ==> Parameters: 
+2019-07-24 15:35:23.280 DEBUG 3280 --- [http-nio-8090-exec-2] l.m.c.c.m.Q.countBySearch                : <==      Total: 1
+2019-07-24 15:35:23.280 DEBUG 3280 --- [http-nio-8090-exec-2] l.m.c.c.m.Q.selectBySearchWithRowbounds  : ==>  Preparing: select * from QUESTION order by gmt_create desc limit ? offset ? 
+2019-07-24 15:35:23.281 DEBUG 3280 --- [http-nio-8090-exec-2] l.m.c.c.m.Q.selectBySearchWithRowbounds  : ==> Parameters: 5(Integer), 0(Integer)
+2019-07-24 15:35:23.283 DEBUG 3280 --- [http-nio-8090-exec-2] l.m.c.c.m.Q.selectBySearchWithRowbounds  : <==      Total: 5
+2019-07-24 15:35:23.284 DEBUG 3280 --- [http-nio-8090-exec-2] l.m.c.c.m.UserMapper.selectByPrimaryKey  : ==>  Preparing: select ID, TOKEN, ACCOUNT_ID, NAME, BIO, GMT_CREATE, GMT_MODIFIED, AVATAR_URL from USER where ID = ? 
+2019-07-24 15:35:23.284 DEBUG 3280 --- [http-nio-8090-exec-2] l.m.c.c.m.UserMapper.selectByPrimaryKey  : ==> Parameters: 293(Long)
+2019-07-24 15:35:23.284 DEBUG 3280 --- [http-nio-8090-exec-2] l.m.c.c.m.UserMapper.selectByPrimaryKey  : <==      Total: 1
+2019-07-24 15:35:23.288 DEBUG 3280 --- [http-nio-8090-exec-2] l.m.c.c.m.UserMapper.selectByPrimaryKey  : ==>  Preparing: select ID, TOKEN, ACCOUNT_ID, NAME, BIO, GMT_CREATE, GMT_MODIFIED, AVATAR_URL from USER where ID = ? 
+2019-07-24 15:35:23.289 DEBUG 3280 --- [http-nio-8090-exec-2] l.m.c.c.m.UserMapper.selectByPrimaryKey  : ==> Parameters: 293(Long)
+2019-07-24 15:35:23.289 DEBUG 3280 --- [http-nio-8090-exec-2] l.m.c.c.m.UserMapper.selectByPrimaryKey  : <==      Total: 1
+2019-07-24 15:35:23.290 DEBUG 3280 --- [http-nio-8090-exec-2] l.m.c.c.m.UserMapper.selectByPrimaryKey  : ==>  Preparing: select ID, TOKEN, ACCOUNT_ID, NAME, BIO, GMT_CREATE, GMT_MODIFIED, AVATAR_URL from USER where ID = ? 
+2019-07-24 15:35:23.290 DEBUG 3280 --- [http-nio-8090-exec-2] l.m.c.c.m.UserMapper.selectByPrimaryKey  : ==> Parameters: 293(Long)
+2019-07-24 15:35:23.290 DEBUG 3280 --- [http-nio-8090-exec-2] l.m.c.c.m.UserMapper.selectByPrimaryKey  : <==      Total: 1
+2019-07-24 15:35:23.290 DEBUG 3280 --- [http-nio-8090-exec-2] l.m.c.c.m.UserMapper.selectByPrimaryKey  : ==>  Preparing: select ID, TOKEN, ACCOUNT_ID, NAME, BIO, GMT_CREATE, GMT_MODIFIED, AVATAR_URL from USER where ID = ? 
+2019-07-24 15:35:23.290 DEBUG 3280 --- [http-nio-8090-exec-2] l.m.c.c.m.UserMapper.selectByPrimaryKey  : ==> Parameters: 293(Long)
+2019-07-24 15:35:23.290 DEBUG 3280 --- [http-nio-8090-exec-2] l.m.c.c.m.UserMapper.selectByPrimaryKey  : <==      Total: 1
+2019-07-24 15:35:23.291 DEBUG 3280 --- [http-nio-8090-exec-2] l.m.c.c.m.UserMapper.selectByPrimaryKey  : ==>  Preparing: select ID, TOKEN, ACCOUNT_ID, NAME, BIO, GMT_CREATE, GMT_MODIFIED, AVATAR_URL from USER where ID = ? 
+2019-07-24 15:35:23.291 DEBUG 3280 --- [http-nio-8090-exec-2] l.m.c.c.m.UserMapper.selectByPrimaryKey  : ==> Parameters: 293(Long)
+2019-07-24 15:35:23.292 DEBUG 3280 --- [http-nio-8090-exec-2] l.m.c.c.m.UserMapper.selectByPrimaryKey  : <==      Total: 1
+2019-07-24 15:35:23.331 DEBUG 3280 --- [http-nio-8090-exec-4] l.m.c.c.m.UserMapper.selectByExample     : ==>  Preparing: select ID, TOKEN, ACCOUNT_ID, NAME, BIO, GMT_CREATE, GMT_MODIFIED, AVATAR_URL from USER WHERE ( TOKEN = ? ) 
+2019-07-24 15:35:23.331 DEBUG 3280 --- [http-nio-8090-exec-4] l.m.c.c.m.UserMapper.selectByExample     : ==> Parameters: 5581cb30-6eda-438b-895e-3d417b6727a1(String)
+2019-07-24 15:35:23.333 DEBUG 3280 --- [http-nio-8090-exec-4] l.m.c.c.m.UserMapper.selectByExample     : <==      Total: 1
+2019-07-24 15:35:23.334 DEBUG 3280 --- [http-nio-8090-exec-4] l.m.c.c.m.N.countByExample               : ==>  Preparing: select count(*) from NOTIFICATION WHERE ( RECEIVER = ? and STATUS = ? ) 
+2019-07-24 15:35:23.335 DEBUG 3280 --- [http-nio-8090-exec-4] l.m.c.c.m.N.countByExample               : ==> Parameters: 293(Long), 0(Integer)
+2019-07-24 15:35:23.335 DEBUG 3280 --- [http-nio-8090-exec-4] l.m.c.c.m.N.countByExample               : <==      Total: 1
+2019-07-24 15:42:21.121  INFO 4432 --- [restartedMain] l.m.c.community.CommunityApplication     : Starting CommunityApplication on DESKTOP-7DIEUL3 with PID 4432 (C:\Users\57446\IdeaProjects\community\target\classes started by 57446 in C:\Users\57446\IdeaProjects\community)
+2019-07-24 15:42:21.123  INFO 4432 --- [restartedMain] l.m.c.community.CommunityApplication     : No active profile set, falling back to default profiles: default
+2019-07-24 15:42:21.182  INFO 4432 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-07-24 15:42:21.183  INFO 4432 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
