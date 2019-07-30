@@ -1,5 +1,6 @@
 package life.majiang.community.community.dto;
 
+import life.majiang.community.community.model.Question;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -7,20 +8,23 @@ import java.util.List;
 
 @Data
 public class PageDTO<T> {
-    private List<T> datas;
-    //   private List<Object> showDTOList;
-    private Boolean showFirstPage;
-    private Boolean showEndPage;
-    private Boolean showPrevious;
-    private Boolean showNext;
+//pageDTO不只是为了question服务，还有其他类的分页列表需要展示，所以采用了泛型。
+
+    private List<T>datas;
+    private List<Integer>pages;//pages：当前页面下，分页栏内page范围的信息
+    private boolean showFirstPage;
+    private boolean showEndPage;
+    private boolean showPrevious;
+    private boolean showNext;
     private int page;
-    private List<Integer> pages = new ArrayList<Integer>();
-    private Integer totalPage;
+    private int totalPage;
 
 
     public void setPageInfo(Integer totalPage, Integer page) {
-
-        this.totalPage = totalPage;
+        //将除了 datas以外的数据set都设置在这个方法中。
+        //因为不同的datas，他的list构成方法不同，应该在不同的service中另行处理。
+        this.pages=new ArrayList<>();
+        this.totalPage = totalPage;//totalpage意义：showEndPage 在html端需要 totalpage的值
         this.page = page;
 
         if (totalPage == 0) {
@@ -74,4 +78,7 @@ public class PageDTO<T> {
 
 
     }
+
+
+
 }

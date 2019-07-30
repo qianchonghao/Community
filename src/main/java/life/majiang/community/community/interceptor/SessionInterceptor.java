@@ -1,5 +1,6 @@
 package life.majiang.community.community.interceptor;
 
+import life.majiang.community.community.Provider.GithubProvider;
 import life.majiang.community.community.enums.NotificationStatusEnum;
 import life.majiang.community.community.mapper.UserMapper;
 import life.majiang.community.community.model.User;
@@ -13,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -26,14 +28,13 @@ public class SessionInterceptor implements HandlerInterceptor {
     //让srping接管，将其并入Spring上下文
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        //interceptor 对所有的程序做拦截。然后检查Cookie是否匹配，如若匹配，则将user添加到session中
-
+        //在頁面跳转的时候，如果浏览器的cookie中之前存储了token，并且该token对应database内user，则视为登录。
 
         Cookie[] cookies = request.getCookies();
         if (cookies != null && cookies.length > 0) {
             for (Cookie cookie : cookies) {
 
-                if (cookie.getName().equals("token")) {
+                if (cookie.getName().equals("token")) {//cookies内存在 name为token的cookie，那么依据该cookie.value()寻找db内的user
                     String token = cookie.getValue();
                     UserExample example = new UserExample();
                     example.createCriteria().andTokenEqualTo(token);//example制定标准
@@ -62,4 +63,6 @@ public class SessionInterceptor implements HandlerInterceptor {
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
 
     }
+
+
 }

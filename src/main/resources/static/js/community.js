@@ -2,19 +2,108 @@
 link 或者button才能跳转js？
 提交回复
  */
-function post() {
-    var questionId = $("#questionId").val();
-    var content = $("#comment_content").val();
-    //input( th:id="questionId" th:value="${quesitonDTO.id}")的值 其中 调用$("questionId").val() 会映射html页面的quesitonDto.id
 
-    insertTarget(questionId, 1, content);
+//
+
+// function post() {
+//     var questionId = $("#questionId").val();
+//     var content = $("#comment_content").val();
+//     //input( th:id="questionId" th:value="${quesitonDTO.id}")的值 其中 调用$("questionId").val() 会映射html页面的quesitonDto.id
+//
+//     insertTarget(questionId, 1, content);
+// }
+function questionPost(){
+    //questionId comment_content
+    var targetId = $("#questionId").val();
+    var content = $("#comment_content").val();
+    var type = 1;
+
+    insertTarget(targetId,type,content);
+
 }
+// function insertSubComment(e) {
+//     var commentId = e.getAttribute("data-id");
+//     var content = $("#input-" + commentId).val();
+//
+//     insertTarget(commentId, 2, content);
+//
+// }
+function subCommentPost(e){
+    var targetId = e.getAttribute("data-id");
+    var content = $("#input-"+targetId).val();
+    var type = 2;
+    insertTarget(targetId,type,content);
+}
+// 目的是通过js function 接受HTML信息，调用 CommentController ，最终插入comment
+// 抽出 subComment
+
+function insertTarget(targetId, type, content) {
+    if (!content) {
+        alert("不能回复空内容.js");//alert和confirm都会跳出确认框，但confirm确认后会返回值
+        //confirm("不能回复空内容.js");
+        return;
+    }
+    $.ajax({//$.ajax是jquery分装，实现post访问跳转后端。
+        type: "POST",
+        url: "/comment",//url 要开头加/ 来定位起始位置
+        contentType: 'application/json',//传入服务器端数据类型为 contentType
+        data: JSON.stringify({//stringify将data由js———>字符串
+            "parentId": targetId,
+            "content": content,
+            "type": type
+        }),
+        success: function (data) {
+            console.log(data);
+            if (data.code == 200) {
+
+                window.location.reload();
+            } else {
+                if (data.code == 2003) {
+                    var isAccepted = confirm(data.message);//跳出确定框，点击确定后 isAccepted为1
+                    if (isAccepted) {
+                        window.open("https://github.com/login/oauth/authorize?client_id=6be2a6faa72ecf6008fb&redirect_uri=http://localhost:8090/callback&scope=user&state=1");
+                        window.localStorage.setItem("closable", "true");
+                    }
+                } else
+                    alert(data.message);
+            }
+        },
+        dataType: "json"//返回js端的数据类型为json
+    });
+}
+
+// function insertTarget(parentId,type,content){//为了实现把前端数据传入后端，在传入数据库。
+// //insetTarget() 内部的参数名称要和传入的参数名称一模一样
+//     if(content==null){
+//         alert("不能回复空内容");
+//         return;
+//     }
+//     $.post("/comment",JSON.stringify({
+//         "parentId":parentId,
+//         "content":content,
+//         "type":type
+//     }),function (data) {
+//                     if (data.code == 200) {
+//                 window.location.reload();
+//             } else {
+//                 if (data.code == 2003) {
+//                     var isAccepted = confirm(data.message);//跳出确定框，点击确定后 isAccepted为1
+//                     if (isAccepted) {
+//                         window.open("https://github.com/login/oauth/authorize?client_id=6be2a6faa72ecf6008fb&redirect_uri=http://localhost:8090/callback&scope=user&state=1");
+//                         window.localStorage.setItem("closable", "true");
+//                     }
+//                 } else
+//                     alert(data.message);
+//             }
+//     },"json");
+//    debugger
+// }
 
 /*
 展开二级评论
  */
 function collapseComments(e) {
-    var collapse = e.getAttribute("data-collapse");
+    var collapse = e.getAttribute("data-collapse");//检查是否已经展开了二级评论
     var id = e.getAttribute("data-id");//获得本条html语句上的attribute
     var subCommentContainer = $("#comment-" + id);
 
@@ -97,52 +186,10 @@ function collapseComments(e) {
 
 }
 
-function insertSubComment(e) {
-    var commentId = e.getAttribute("data-id");
-    var content = $("#input-" + commentId).val();
-
-    insertTarget(commentId, 2, content);
-
-}
 
 
-//目的是通过js function 接受HTML信息，调用 CommentController ，最终插入comment
-//抽出 subComment
-function insertTarget(targetId, type, content) {
-    if (!content) {
-        alert("不能回复空内容.js");//alert和confirm都会跳出确认框，但confirm确认后会返回值
-        //confirm("不能回复空内容.js");
-        return;
-    }
-    $.ajax({//$.ajax是jquery分装，实现post访问跳转后端。
-        type: "POST",
-        url: "/comment",//url 要开头加/ 来定位起始位置
-        contentType: 'application/json',
-        data: JSON.stringify({//stringify将data由js———>字符串
-            "parentId": targetId,
-            "content": content,
-            "type": type
-        }),
-        success: function (response) {
-            console.log(response);
-            if (response.code == 200) {
 
-                window.location.reload();
-            } else {
-                if (response.code == 2003) {
-                    var isAccepted = confirm(response.message);//跳出确定框，点击确定后 isAccepted为1
-                    if (isAccepted) {
-                        window.open("https://github.com/login/oauth/authorize?client_id=6be2a6faa72ecf6008fb&redirect_uri=http://localhost:8090/callback&scope=user&state=1");
-                        window.localStorage.setItem("closable", "true");
-                    }
-                } else
-                    alert(response.message);
-            }
-        },
-        dataType: "json"
-    });
 
-}
 
 function selectTag(e) {
     var value = e.getAttribute("data-tag");

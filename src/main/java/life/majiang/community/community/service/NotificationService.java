@@ -4,7 +4,6 @@ import life.majiang.community.community.Exception.CustomizeErrorCode;
 import life.majiang.community.community.Exception.CustomizeException;
 import life.majiang.community.community.dto.NotificationDTO;
 import life.majiang.community.community.dto.PageDTO;
-import life.majiang.community.community.dto.QuestionDTO;
 import life.majiang.community.community.enums.NotificationStatusEnum;
 import life.majiang.community.community.enums.NotificationTypeEnum;
 import life.majiang.community.community.mapper.NotificationMapper;
@@ -96,21 +95,54 @@ public class NotificationService {
         return notificationMapper.countByExample(example);
     }
 
-    public NotificationDTO read(Long notificationId, User user) {
-        Notification notification = notificationMapper.selectByPrimaryKey(notificationId);
-        notification.setStatus(NotificationStatusEnum.READ.getStatus());
-        notificationMapper.updateByPrimaryKey(notification);
-        if (!notification.getReceiver().equals(user.getId())) {//为什么只能用equals比较 不能用！=比较
-            throw new CustomizeException(CustomizeErrorCode.READ_NOTIFICATION_FAILED);
-        }
-        if (notification == null) {
-            throw new CustomizeException(CustomizeErrorCode.NOTIFICATION_NOT_FOUND);
-        }
-        NotificationDTO notificationDTO = new NotificationDTO();
-        BeanUtils.copyProperties(notification, notificationDTO);//将同名的变量由 question--->questionDTO
-        notificationDTO.setTypeName(NotificationTypeEnum.nameOfType(notification.getType()));
+//    public NotificationDTO read(Long notificationId, User user) {
+//        Notification notification = notificationMapper.selectByPrimaryKey(notificationId);
+//        notification.setStatus(NotificationStatusEnum.READ.getStatus());
+//        notificationMapper.updateByPrimaryKey(notification);
+//        if (!notification.getReceiver().equals(user.getId())) {//为什么只能用equals比较 不能用！=比较
+//            throw new CustomizeException(CustomizeErrorCode.READ_NOTIFICATION_FAILED);
+//        }//真的有必要嗎？
+//        if (notification == null) {
+//            throw new CustomizeException(CustomizeErrorCode.NOTIFICATION_NOT_FOUND);
+//        }
+//        NotificationDTO notificationDTO = new NotificationDTO();
+//        BeanUtils.copyProperties(notification, notificationDTO);//将同名的变量由 question--->questionDTO
+//        notificationDTO.setTypeName(NotificationTypeEnum.nameOfType(notification.getType()));
+//
+//
+//        return notificationDTO;//为何返回NotificationDTO?
+//    }
 
+    public Notification read(Long notificationId) {
+        // 更新db内notification的status
+    Notification notification = notificationMapper.selectByPrimaryKey(notificationId);
+    if(notification==null) throw new CustomizeException(CustomizeErrorCode.NOTIFICATION_NOT_FOUND);
+    notification.setStatus(NotificationStatusEnum.READ.getStatus());
+    notificationMapper.updateByPrimaryKey(notification);
 
-        return notificationDTO;
+//    NotificationDTO notificationDTO = new NotificationDTO();
+//    BeanUtils.copyProperties(notification,notificationDTO);
+//    notificationDTO.setTypeName(NotificationTypeEnum.nameOfType(notification.getType()));
+        //notificationDTO和notification的区别 ： 前者有typeName 后者有Receiver
+        // typeName 有什么意义吗？ typename 和notifierName重合 ，notificationDTO没有意义 直接返回Notification
+    return  notification;
+
     }
+    public void insert(Long notifier,Long outId,String outerTitle,Long receiver,Integer type,String notifierName) {
+        Notification notification = new Notification();
+        notification.setNotifier(notifier);
+
+
+        //填写被评论用户信息 被评论用户的通知数量在interceptor中间，每次count.andReceiverEqual(user.id);输出
+        notification.setReceiver(receiver);
+
+        notification.setOuterid(outId);
+        notification.setOuterTitle(outerTitle);
+        notification.setType(type);
+        notification.setNotifierName(notifierName);
+        notification.setStatus(NotificationStatusEnum.UNREAD.getStatus());
+        notification.setGmtCreate(System.currentTimeMillis());
+        notificationMapper.insert(notification);
+    }
+
 }

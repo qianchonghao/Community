@@ -108,7 +108,7 @@
                                        th:id="'input-'+${commentDTO.id}">
                                 <button type="button" class="btn btn-success pull-right sub-comment-btn"
                                         th:data-id="${commentDTO.id}"
-                                        onclick="insertSubComment(this)">评论
+                                        onclick="subCommentPost(this)">评论
                                 </button>
                                 <!--th：data 信息要和 onclik在同一条语句-->
                             </div>
@@ -138,7 +138,7 @@
                 <input type="hidden" id="questionId" th:value="${questionDTO.id}">
                 <textarea class="form-control comment" id="comment_content" rows="6"></textarea>
                 <!--comment th:value 直接由 textarea内容赋值-->
-                <button type="button" class="btn btn-success comment-button" onclick="post()">回复</button>
+                <button type="button" class="btn btn-success comment-button" onclick="questionPost()">回复</button>
             </div>
             <!--发起人信息 -->
         </div>

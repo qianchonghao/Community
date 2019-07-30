@@ -21,26 +21,10 @@
 
         <result column="DESCRIPTION" jdbcType="CLOB" property="description"/>
     </resultMap>
-    <update id="incView" parameterType="map">
-        <!--parameterType，是指引入变量的类型 -->
-        <!--在MapperExt.java中参数的传递使用了@Param("record") 因此此处paraMeterType = map -->
-        update QUESTION
-        set
-        VIEW_COUNT = #{record.viewCount,jdbcType=INTEGER}+VIEW_COUNT
-        where id = #{record.id}
-    </update>
-    <update id="incComment" parameterType="map">
-        <!--parameterType，是指引入变量的类型 -->
-        <!--在MapperExt.java中参数的传递使用了@Param("record") 因此此处paraMeterType = map -->
-        update QUESTION
-        set
-        COMMENT_COUNT = #{record.commentCount,jdbcType=INTEGER}+COMMENT_COUNT
-        where id = #{record.id}
-    </update>
 
-    <select id="selectRelated" parameterType="map" resultMap="BaseResultMap">
-        select * from QUESTION where id!=#{record.id} and tag regexp #{record.tag}
-    </select>
+
+
+
 
     <select id="countBySearch" parameterType="map" resultType="java.lang.Integer">
         select count(*) from QUESTION
@@ -63,4 +47,32 @@
         order by gmt_create desc
         limit #{size} offset #{offset}
     </select>
+    <update id="incView" parameterType="life.majiang.community.community.model.Question">
+
+        update QUESTION
+        set VIEW_COUNT = VIEW_COUNT+#{viewCount}
+        where   ID = #{id}
+
+
+    </update>
+
+    <select id="selectRelated" parameterType="life.majiang.community.community.model.Question"
+            resultMap="BaseResultMap">
+-- resultMap=baseResultMap 返回List
+        select * from QUESTION
+        <where>
+            <if test="tag!=null">
+                and tag regexp #{tag}
+            </if>
+            and id != #{id}
+        </where>
+
+    </select>
+    <update id="incComment" parameterType="life.majiang.community.community.model.Question">
+
+        update QUESTION
+        set     COMMENT_COUNT=COMMENT_COUNT+#{commentCount}
+        where  ID= #{id}
+
+    </update>
 </mapper>

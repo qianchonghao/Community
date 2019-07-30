@@ -13,6 +13,8 @@ public enum NotificationTypeEnum {
         this.name = message;
     }
 
+
+
     public int getType() {
         return type;
     }
@@ -29,4 +31,5 @@ public enum NotificationTypeEnum {
         }
         return null;
     }
+
 }

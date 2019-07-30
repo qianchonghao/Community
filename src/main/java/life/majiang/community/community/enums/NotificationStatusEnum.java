@@ -12,3 +12,4 @@ public enum NotificationStatusEnum {
         this.status = status;
     }
 }
+

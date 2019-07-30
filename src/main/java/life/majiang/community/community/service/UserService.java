@@ -17,18 +17,13 @@ public class UserService {
 
     public void createOrUpdate(User user) {
 
-
         UserExample example = new UserExample();
         example.createCriteria().andAccountIdEqualTo(user.getAccountId());
         List<User> userList = userMapper.selectByExample(example);
         User temp = userList.get(0);
         // User temp = userMapper.getUserByAccountId(user.getAccountId());
         if (temp != null) {
-
-
             //如果user存在，那么gmtCreate()是不会变化的，仅setModified
-
-
             UserExample example1 = new UserExample();
             example1.createCriteria().andAccountIdEqualTo(user.getAccountId());
             userMapper.updateByExampleSelective(user, example1);
@@ -40,4 +35,7 @@ public class UserService {
             userMapper.insert(user);
         }
     }
+
+
+
 }
